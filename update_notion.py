@@ -8,6 +8,8 @@ credentials_base64 = os.getenv('GOOGLE_SHEET_CREDENTIALS_JSON')
 credentials_json = base64.b64decode(credentials_base64).decode("utf-8")
 notion_token = os.getenv('NOTION_TOKEN')
 
+print(credentials_json)
+
 # Configurar cliente do Google Sheets e Notion
 gc = gspread.service_account_from_dict(credentials_json)
 client = NotionClient(token_v2=notion_token)
