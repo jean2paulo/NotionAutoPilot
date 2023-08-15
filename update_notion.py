@@ -2,6 +2,7 @@ import gspread
 from notion.client import NotionClient
 import os 
 import json
+import base64
 
 # Ler as variáveis de ambiente
 credentials_base64 = os.getenv('GOOGLE_SHEET_CREDENTIALS_JSON')
