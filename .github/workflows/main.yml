@@ -25,5 +25,5 @@ jobs:
           pip3 install --upgrade gspread
           pip3 install notion-client
 
-      - name: Atualizar Notion
-        run: python3 update_notion.py
+      #- name: Atualizar Notion
+      #  run: python3 update_notion.py
