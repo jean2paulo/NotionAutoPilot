@@ -1,5 +1,5 @@
 import gspread
-from notion_client import NotionClient
+from notion.client import NotionClient
 import os 
 import json
 import base64
