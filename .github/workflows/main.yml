@@ -15,7 +15,7 @@ jobs:
 
       - name: Configurar ambiente
         run: |
-          echo "GOOGLE_SHEET_CREDENTIALS_JSON=${{ secrets.GOOGLE_SHEET_CREDENTIALS_JSON | base64 -di}}" >> $GITHUB_ENV
+          echo "GOOGLE_SHEET_CREDENTIALS_JSON=${{ secrets.GOOGLE_SHEET_CREDENTIALS_JSON }} | base64 -di" >> $GITHUB_ENV
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
 
       - name: Instalar dependências
