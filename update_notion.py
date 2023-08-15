@@ -1,10 +1,11 @@
 import gspread
 from notion.client import NotionClient
-import os
+import os 
 import json
 
 # Ler as variáveis de ambiente
-credentials_json = os.getenv('GOOGLE_SHEET_CREDENTIALS_JSON')
+credentials_base64 = os.getenv('GOOGLE_SHEET_CREDENTIALS_JSON')
+credentials_json = base64.b64decode(credentials_base64).decode("utf-8")
 notion_token = os.getenv('NOTION_TOKEN')
 
 # Configurar cliente do Google Sheets e Notion
