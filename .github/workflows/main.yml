@@ -25,10 +25,5 @@ jobs:
           pip3 install notion-py
           pip3 install notion-client
 
-          
-      - name: Print Env
-        run: |
-          echo $GOOGLE_SHEET_CREDENTIALS_JSON
-
       - name: Atualizar Notion
         run: python3 update_notion.py
