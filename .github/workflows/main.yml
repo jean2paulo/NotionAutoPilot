@@ -14,9 +14,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Configurar ambiente
+        env:
+          GOOGLE_SHEET_CREDENTIALS_JSON: ${{ secrets.GOOGLE_SHEET_CREDENTIALS_JSON }}
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
         run: |
-          echo "GOOGLE_SHEET_CREDENTIALS_JSON=${{ secrets.GOOGLE_SHEET_CREDENTIALS_JSON }}" >> $GITHUB_ENV
-          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
+          echo $GOOGLE_SHEET_CREDENTIALS_JSON | base64 -di
 
       - name: Instalar dependências
         run: |
