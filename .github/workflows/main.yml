@@ -1,9 +1,7 @@
 name: Atualização de Dados
 
 on:
-  push:
-    branches:
-      - commit
+  push
 
 jobs:
   update_data:
