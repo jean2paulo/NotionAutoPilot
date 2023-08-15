@@ -21,8 +21,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y python3-pip
           pip3 install --upgrade gspread
-          pip3 install notion
-          pip3 install notion-py
           pip3 install notion-client
 
       - name: Atualizar Notion
