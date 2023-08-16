@@ -20,7 +20,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file,
 googleClient = gspread.authorize(credentials)
 
 # Configurar cliente de Notion
-client = Client(auth=notion_token)
+notion = Client(auth=notion_token)
 
 # ID da planilha do Google Sheets
 spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
