@@ -34,7 +34,7 @@ for row in data:
     notion_page_url = row['URL']
     name = row['NAME']
     price = row['PRICE']
-    print(f"{nome}: {price}")
+    print(f"{name}: {price}")
     # Pegar a página Notion correspondente
     #notion_page = client.get_block(notion_page_url)
 
