@@ -28,12 +28,11 @@ jobs:
         name: 'Autenticando no to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          token_format: 'access_token'
           credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
       - name: Setando GC token
         run: |
-          echo "GOOGLE_CLOUD_TOKEN=${{ steps.auth.outputs.access_token }}" >> $GITHUB_ENV
+          echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
       - name: Atualizar Notion
         run: python3 update_notion.py
