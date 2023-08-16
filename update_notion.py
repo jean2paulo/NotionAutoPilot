@@ -1,5 +1,5 @@
 import gspread
-from notion.client import NotionClient
+from notion_client import Client
 import os 
 import json
 import base64
@@ -11,7 +11,7 @@ notion_token = os.getenv('NOTION_TOKEN')
 
 # Configurar cliente do Google Sheets e Notion
 gc = gspread.service_account_from_dict(json.loads(credentials_json))
-client = NotionClient(auth=notion_token)
+client = Client(auth=notion_token)
 
 # ID da planilha do Google Sheets
 spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
