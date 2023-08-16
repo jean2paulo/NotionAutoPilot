@@ -32,16 +32,18 @@ worksheet = sh.worksheet(worksheet_name)
 data = worksheet.get_all_records(numericise_ignore=['all'])
 for row in data:
     notion_page_id = row['ID']
+    formatted_page_id = f"{notion_page_id[:8]}-{notion_page_id[8:12]}-{notion_page_id[12:16]}-{notion_page_id[16:20]}-{notion_page_id[20:]}"
+    
     name = row['NAME']
     price = row['PRICE']
     print(f"{name}: {price}")
     
     # Atualizar o valor na propriedade "Price" da página no Notion
     notion.pages.update(
-        "ada777962132413ba326704974fa5fe4",
+        formatted_page_id,
         properties={
             "Price": {
-                "number": {"content": price }
+                "number": price
             }
         },
     )
