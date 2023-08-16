@@ -6,13 +6,14 @@ import base64
 from google.oauth2 import service_account
 
 # Ler as variáveis de ambiente
-credentials_base64 = os.getenv('GOOGLE_SHEET_CREDENTIALS_JSON')
-credentials_json = base64.b64decode(credentials_base64).decode("utf-8")
-
+credentials_file = os.getenv('GOOGLE_CLOUD_CREDENTIALS_FILE')
 notion_token = os.getenv('NOTION_TOKEN')
 
+# Defina o escopo e carregue as credenciais do arquivo JSON
+scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file, scope)
+
 # Configurar cliente do Google Sheets
-credentials = service_account.Credentials.from_service_account_info(json.loads(credentials_json))
 googleClient = gspread.authorize(credentials)
 
 # Configurar cliente de Notion
