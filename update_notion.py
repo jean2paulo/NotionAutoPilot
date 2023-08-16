@@ -43,7 +43,10 @@ for row in data:
         formatted_page_id,
         properties={
             "Price": {
-                "number": price
+                "rich_text": [
+                    "type": "number",
+                    "number": price
+                ]
             }
         },
     )
