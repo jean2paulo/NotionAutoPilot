@@ -28,8 +28,8 @@ jobs:
         name: 'Autenticando no to Google Cloud'
         uses: 'google-github-actions/auth@v1'
         with:
-          credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
           token_format: 'access_token'
+          credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
       - name: Setando GC token
         run: |
