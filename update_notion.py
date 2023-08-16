@@ -13,7 +13,7 @@ notion_token = os.getenv('NOTION_TOKEN')
 
 # Configurar cliente do Google Sheets
 credentials = service_account.Credentials.from_service_account_info(json.loads(credentials_json))
-googleClient = gs.authorize(credentials)
+googleClient = gspread.authorize(credentials)
 
 # Configurar cliente de Notion
 client = Client(auth=notion_token)
