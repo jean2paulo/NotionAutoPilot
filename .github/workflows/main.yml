@@ -30,8 +30,5 @@ jobs:
         with:
           credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
-      - name: 'Set up Cloud SDK'
-        uses: 'google-github-actions/setup-gcloud@v1'
-
       - name: Atualizar Notion
         run: python3 update_notion.py
