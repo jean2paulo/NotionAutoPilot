@@ -29,7 +29,7 @@ sh = googleClient.open_by_key(spreadsheet_id)
 worksheet = sh.worksheet(worksheet_name)
 
 # Percorrer todas as linhas da planilha
-data = worksheet.get_all_records()
+data = worksheet.get_all_records(numericise_ignore=['all'])
 for row in data:
     notion_page_url = row['URL']
     name = row['NAME']
