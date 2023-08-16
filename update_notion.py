@@ -12,7 +12,7 @@ scope = [
     "https://www.googleapis.com/auth/drive", 
     "https://www.googleapis.com/auth/spreadsheets"
 ]
-credentials = service_account.Credentials.from_json_keyfile_name(credentials_file, scope)
+credentials = service_account.Credentials.from_service_account_file(credentials_file, scope)
 
 # Configurar cliente do Google Sheets
 googleClient = gspread.authorize(credentials)
