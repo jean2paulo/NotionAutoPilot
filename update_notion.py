@@ -20,7 +20,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file,
 googleClient = gspread.authorize(credentials)
 
 # Configurar cliente de Notion
-# client = Client(auth=notion_token)
+client = Client(auth=notion_token)
 
 # ID da planilha do Google Sheets
 spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
@@ -31,13 +31,17 @@ worksheet = sh.worksheet(worksheet_name)
 # Percorrer todas as linhas da planilha
 data = worksheet.get_all_records(numericise_ignore=['all'])
 for row in data:
-    notion_page_url = row['URL']
+    notion_page_id = row['ID']
     name = row['NAME']
     price = row['PRICE']
     print(f"{name}: {price}")
-    # Pegar a página Notion correspondente
-    #notion_page = client.get_block(notion_page_url)
-
+    
     # Atualizar o valor na propriedade "Price" da página no Notion
-    #notion_property = notion_page.collection.get_schema_property('Price')
-    #notion_page.set_property(notion_property['id'], new_value)
+    notion.pages.update(
+        notion_page_id,
+        properties={
+            "Price": {
+                "number": {"content": price }
+            }
+        },
+    )
