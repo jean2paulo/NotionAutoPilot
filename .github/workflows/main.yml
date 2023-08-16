@@ -8,31 +8,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repositório
+      - name: Checkout repositório..
         uses: actions/checkout@v3
 
-      - name: Configurar ambiente
-        run: |
-          echo "GOOGLE_SHEET_CREDENTIALS_JSON=${{ secrets.GOOGLE_SHEET_CREDENTIALS_JSON }}" >> $GITHUB_ENV
-          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
-
-      - name: Instalar dependências
+      - name: Instalando dependências..
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
           pip3 install gspread oauth2client
           pip3 install notion-client
-
           
       - id: 'auth'
-        name: 'Autenticando no to Google Cloud'
+        name: Autenticando no Google Cloud..
         uses: 'google-github-actions/auth@v1'
         with:
           credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
-      - name: Setando GC token
+      - name: Configurando variaveis de ambiente..
         run: |
+          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
           echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
-      - name: Atualizar Notion
+      - name: Atualizando em Notion
         run: python3 update_notion.py
