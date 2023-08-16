@@ -35,11 +35,11 @@ for row in data:
     formatted_page_id = f"{notion_page_id[:8]}-{notion_page_id[8:12]}-{notion_page_id[12:16]}-{notion_page_id[16:20]}-{notion_page_id[20:]}"
     
     name = row['NAME']
-    price = row['PRICE']
+    price = row['PRICE'].replace(",", ".")
     print(f"{name}: {price}")
     
     # Atualizar o valor na propriedade "Price" da página no Notion
     notion.pages.update(
         formatted_page_id,
-        properties={"Price":[{"type": "number","number": price}]},
+        properties={"Price":{"type":"number","number": price}},
     )
