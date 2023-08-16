@@ -35,7 +35,7 @@ for row in data:
     formatted_page_id = f"{notion_page_id[:8]}-{notion_page_id[8:12]}-{notion_page_id[12:16]}-{notion_page_id[16:20]}-{notion_page_id[20:]}"
     
     name = row['NAME']
-    price = row['PRICE'].replace(",", ".")
+    price = float(row['PRICE'].replace(",", "."))
     print(f"{name}: {price}")
     
     # Atualizar o valor na propriedade "Price" da página no Notion
