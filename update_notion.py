@@ -33,7 +33,7 @@ data = worksheet.get_all_records()
 for row in data:
     notion_page_url = row['URL']
     name = row['NAME']
-    price = row['PRICE']
+    price = float(row['PRICE'])
     print(f"{name}: {price}")
     # Pegar a página Notion correspondente
     #notion_page = client.get_block(notion_page_url)
