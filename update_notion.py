@@ -41,5 +41,5 @@ for row in data:
     # Atualizar o valor na propriedade "Price" da página no Notion
     notion.pages.update(
         formatted_page_id,
-        properties={"Price":{"type":"number","number": price}},
+        properties={"Price":{"number": price}},
     )
