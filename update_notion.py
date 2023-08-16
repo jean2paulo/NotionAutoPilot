@@ -1,7 +1,7 @@
 import os
 import gspread
 from notion_client import Client
-from oauth2client.service_account import ServiceAccountCredentials
+from google.oauth2 import service_account
 
 # Ler as variáveis de ambiente
 credentials_file = os.getenv('GOOGLE_CLOUD_CREDENTIALS_FILE')
@@ -12,7 +12,7 @@ scope = [
     "https://www.googleapis.com/auth/drive", 
     "https://www.googleapis.com/auth/spreadsheets"
 ]
-credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file, scope)
+credentials = service_account.Credentials.from_json_keyfile_name(credentials_file, scope)
 
 # Configurar cliente do Google Sheets
 googleClient = gspread.authorize(credentials)
