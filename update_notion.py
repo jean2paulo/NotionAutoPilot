@@ -38,7 +38,7 @@ for row in data:
     
     # Atualizar o valor na propriedade "Price" da página no Notion
     notion.pages.update(
-        notion_page_id,
+        "ada777962132413ba326704974fa5fe4",
         properties={
             "Price": {
                 "number": {"content": price }
