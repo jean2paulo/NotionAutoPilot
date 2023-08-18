@@ -1,7 +1,8 @@
 name: Atualização de Dados
 
 on:
-  push
+  schedule:
+    - cron: "30 6,9,12,15 * * 1-5" # www.crontab.guru
 
 jobs:
   update_data:
@@ -30,4 +31,4 @@ jobs:
           echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
       - name: Atualizando em Notion
-        run: python3 update_notion.py
+        run: python3 update_quotes.py
