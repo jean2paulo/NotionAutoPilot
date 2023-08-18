@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 
 # URL da página da qual você deseja recuperar o item
-url = "https://statusinvest.com.br/fiagros/vgia11"
+url = "http://statusinvest.com.br/fiagros/vgia11"
 
 # Enviando uma solicitação GET para obter o conteúdo da página
 response = requests.get(url)
