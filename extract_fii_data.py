@@ -14,7 +14,7 @@ if response.status_code == 200:
     soup = BeautifulSoup(response.content, "html.parser")
 
     # Encontrando todos os elementos que correspondem ao seletor CSS (substitua "SELETOR_CSS" pelo seletor correto)
-    elements = soup.select("<div class=\"indicators_box\">")
+    elements = soup.select("indicators_box")
     
     # Verificando se elementos foram encontrados
     if elements:
