@@ -1,0 +1,20 @@
+name: Atualização de Dados
+
+on:
+  push
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório..
+        uses: actions/checkout@v3
+
+      - name: Instalando dependências..
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+
+      - name: Buscando dados de status invest
+        run: python3 extract_fii_data.py
