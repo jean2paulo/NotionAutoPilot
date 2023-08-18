@@ -31,15 +31,26 @@ worksheet = sh.worksheet(worksheet_name)
 # Percorrer todas as linhas da planilha
 data = worksheet.get_all_records(numericise_ignore=['all'])
 for row in data:
-    notion_page_id = row['ID']
-    formatted_page_id = f"{notion_page_id[:8]}-{notion_page_id[8:12]}-{notion_page_id[12:16]}-{notion_page_id[16:20]}-{notion_page_id[20:]}"
+    try:
     
-    name = row['NAME']
-    price = float(row['PRICE'].replace(",", "."))
-    print(f"{name}: {price}")
+        notion_page_id = row['ID']
+        formatted_page_id = f"{notion_page_id[:8]}-{notion_page_id[8:12]}-{notion_page_id[12:16]}-{notion_page_id[16:20]}-{notion_page_id[20:]}"
     
-    # Atualizar o valor na propriedade "Price" da página no Notion
-    notion.pages.update(
-        formatted_page_id,
-        properties={"Price":{"number": price}},
-    )
+        name = row['NAME']
+        stringPrice = row['PRICE']
+        
+        if stringPrice != "#N/A"
+            price = float(stringPrice.replace(",", "."))
+    
+            # Atualizar o valor na propriedade "Price" da página no Notion
+            notion.pages.update(
+                formatted_page_id,
+                properties={"Price":{"number": price}},
+            )
+
+            print(f"✓ {name}: {price}")
+        else 
+            print(f"✖ {name}: #N/A")
+            
+    except Exception as e:
+        print("Ocorreu um erro: ", e)
