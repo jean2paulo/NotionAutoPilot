@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 url = "http://statusinvest.com.br/fiagros/vgia11"
 
 # Enviando uma solicitação GET para obter o conteúdo da página
-response = requests.get(url)
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'}
+response = requests.get(url, headers=headers)
 
 # Verificando se a solicitação foi bem-sucedida
 if response.status_code == 200:
