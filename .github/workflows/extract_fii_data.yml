@@ -15,6 +15,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
+          pip3 install requests
+          pip3 install beautifulsoup4
 
       - name: Buscando dados de status invest
         run: python3 extract_fii_data.py
