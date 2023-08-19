@@ -18,8 +18,8 @@ if response.status_code == 200:
 
     lastDy = soup.find_all("span", class_="indicator-value")
 
-    print("Preço": price.text.replace(" ", ""))
-    print("Ultimo rendimento": lastDy[1].text.replace(" ", ""))
+    print("Preço: ", price.text.replace(" ", ""))
+    print("Ultimo rendimento: ", lastDy[1].text.replace(" ", ""))
     
     
 else:
