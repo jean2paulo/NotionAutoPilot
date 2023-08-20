@@ -32,3 +32,11 @@ jobs:
 
       - name: Atualizando em Notion
         run: python3 update_quotes.py
+
+      - name: Enviando notificaçao por Telegram 
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Cotaçoes atualizadas
+          disable_notification: true
