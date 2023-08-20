@@ -1,7 +1,8 @@
-name: Atualização de Dados
+name: Sandbox
 
 on:
-  push
+  pull_request
+  #push
 
 jobs:
   update_data:
