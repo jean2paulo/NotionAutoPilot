@@ -39,7 +39,7 @@ for row in data:
         name = row['NAME']
         stringPrice = row['PRICE']
         
-        if stringPrice != "#N/A"
+        if stringPrice != "#N/A":
             price = float(stringPrice.replace(",", "."))
     
             # Atualizar o valor na propriedade "Price" da página no Notion
