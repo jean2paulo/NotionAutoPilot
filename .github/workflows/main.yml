@@ -1,4 +1,4 @@
-name: Atualização de Dados
+name: Atualização de Cotaçao
 
 on:
   push:
