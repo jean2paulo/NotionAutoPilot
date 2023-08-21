@@ -49,7 +49,7 @@ for row in data:
             )
 
             print(f"✓ {name}: {price}")
-        else 
+        else:
             print(f"✖ {name}: #N/A")
             
     except Exception as e:
