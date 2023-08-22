@@ -1,0 +1,11 @@
+name: GitHub Actions Class
+
+on: 
+  repository_dispatch:
+
+jobs:
+  run-github-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo HelloWorld
+        run: echo "Hello world!"
