@@ -2,10 +2,11 @@ name: GitHub Actions Class
 
 on: 
   repository_dispatch:
+    types: [build]
 
 jobs:
   run-github-actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Echo HelloWorld
-        run: echo "Hello world!"
+      - name: Echo Payload
+        run: echo ${{ github.event_client_payload.env }}
