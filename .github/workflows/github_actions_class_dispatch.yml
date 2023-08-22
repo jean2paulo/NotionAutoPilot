@@ -9,4 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Echo Payload
-        run: echo ${{ github.event_client_payload.env }}
+        run: echo ${{ github.client_payload.env }}
