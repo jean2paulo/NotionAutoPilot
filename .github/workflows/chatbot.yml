@@ -1,7 +1,8 @@
 name: Chatbot
 
 on:
-  push:
+  repository_dispatch:
+    types: [chatbot]
 
 jobs:
   update_data:
