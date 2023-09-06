@@ -17,6 +17,14 @@ jobs:
           sudo apt-get install -y python3-pip
           pip3 install pyTelegramBotAPI
 
+      - name: Enviando notificaçao por Telegram 
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Bot online!
+          disable_notification: true
+
       - name: Configurando variaveis de ambiente..
         run: |
           echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> $GITHUB_ENV
@@ -29,5 +37,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Bot online!
+          message: Bot offline!
           disable_notification: true
