@@ -1,10 +1,12 @@
 name: Chatbot
 
 on:
+  workflow_dispatch:
   repository_dispatch:
     types: [chatbot]
 
 jobs:
+  #log-info:
   update_data:
     runs-on: ubuntu-latest
 
