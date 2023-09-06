@@ -1,0 +1,29 @@
+name: Chatbot
+
+on:
+  push:
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório..
+        uses: actions/checkout@v3
+
+      - name: Instalando dependências..
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install pyTelegramBotAPI
+
+      - name: Atualizando em Notion
+        run: python3 chatbot.py
+
+      - name: Enviando notificaçao por Telegram 
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: Bot online!
+          disable_notification: true
