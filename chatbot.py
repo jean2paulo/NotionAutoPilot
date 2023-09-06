@@ -12,7 +12,7 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['whatsapp'])
 def send_wa_link(message):
-    number = message.text.replace('/whatsapp ')
+    number = message.text.replace('/whatsapp ', '')
     bot.reply_to(message, f"Link: https://wa.me/{number}?text=I'm%20interested%20in%20your%20car%20for%20sale")
 
 @bot.message_handler(commands=['horoscope'])
