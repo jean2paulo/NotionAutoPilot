@@ -17,7 +17,7 @@ jobs:
           sudo apt-get install -y python3-pip
           pip3 install pyTelegramBotAPI
 
-      - name: Atualizando em Notion
+      - name: Inicializando Chat Bot
         run: python3 chatbot.py
 
       - name: Enviando notificaçao por Telegram 
