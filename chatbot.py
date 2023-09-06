@@ -3,7 +3,7 @@ import telebot
 
 from utils import get_daily_horoscope
 
-telegram_bot_token = os.getenv('TELEGRAM_TOKEN')
+telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 bot = telebot.TeleBot(telegram_bot_token)
 
 @bot.message_handler(commands=['start', 'hello'])
