@@ -12,7 +12,8 @@ def send_welcome(message):
 
 @bot.message_handler(commands=['whatsapp'])
 def send_wa_link(message):
-    bot.reply_to(message, f"Link: https://wa.me/{mmessage.text}?text=I'm%20interested%20in%20your%20car%20for%20sale")
+    number = message.text
+    bot.reply_to(message, f"Link: https://wa.me/{number}?text=I'm%20interested%20in%20your%20car%20for%20sale")
 
 @bot.message_handler(commands=['horoscope'])
 def sign_handler(message):
