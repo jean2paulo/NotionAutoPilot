@@ -22,6 +22,7 @@ def buildWhatsappLink(number, text):
 
 @bot.message_handler(commands=[WHATSAPP_BOT_TERM])
 def send_wa_link(message):
+    string = message.text
     parameter = string.replace(f'/{WHATSAPP_BOT_TERM}', '')
     string_parameters = parameter.strip().split(maxsplit=1)
     url = buildWhatsappLink(string_parameters[0], string_parameters[1])
