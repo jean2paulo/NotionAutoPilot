@@ -3,6 +3,11 @@ import telebot
 
 from utils import get_daily_horoscope
 
+# CONSTANTS
+WHATSAPP_BOT_TERM = "whatsapp"
+
+#init
+
 telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 bot = telebot.TeleBot(telegram_bot_token)
 
@@ -10,10 +15,17 @@ bot = telebot.TeleBot(telegram_bot_token)
 def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
-@bot.message_handler(commands=['whatsapp'])
+def buildWhatsappLink(number, text):
+  textEncoded = urllib.parse.quote(text)
+  url = f"Link: https://wa.me/{number}/?text={textEncoded}"
+  return url
+
+@bot.message_handler(commands=[WHATSAPP_BOT_TERM])
 def send_wa_link(message):
-    number = message.text.replace('/whatsapp ', '')
-    bot.reply_to(message, f"Link: https://wa.me/{number}?text=I'm%20interested%20in%20your%20car%20for%20sale")
+    parameter = string.replace(f'/{WHATSAPP_BOT_TERM}', '')
+    string_parameters = parameter.strip().split(maxsplit=1)
+    url = buildWhatsappLink(string_parameters[0], string_parameters[1])
+    bot.reply_to(message, url)
 
 @bot.message_handler(commands=['horoscope'])
 def sign_handler(message):
