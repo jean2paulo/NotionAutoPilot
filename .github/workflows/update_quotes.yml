@@ -1,11 +1,13 @@
 name: Atualização de Cotaçao
 
 on:
-  push:
-    branches:
-      - master
-      - 'feature/*'
-      - '!dev'
+  workflow_dispatch:
+
+  #push:
+    #branches:
+    #  - master
+    #  - 'feature/*'
+    #  - '!dev'
     #branches-ignore:
     #  - dev
   schedule:
