@@ -1,6 +1,30 @@
 name: GitHub Actions Class
 
 on: 
+  workflow_dispatch:
+    inputs:
+      string:
+        description: A string input
+        type: string
+        required: true
+        default: " Default value" 
+      number: 
+        description: A number input
+        type: number
+        default: 4
+      option:
+        description: A number input
+        type: choice
+        required: true
+        options:
+          - Option 1
+          - Option 2
+          - Option 3
+        default: "Option 3"
+      boolean:
+        description: A boolean input
+        required: false
+        type: boolean
   repository_dispatch:
     types: [build]
 
