@@ -31,11 +31,10 @@ jobs:
         run: |
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Consultando infos em Notion
-        id: consulta_notion
+      - name: Consultando infos em Notion (multiple lines)
         run: |
           echo 'RESULT<<EOF' >> $GITHUB_ENV
-          $(python3 daily_report.py) >> $GITHUB_ENV
+          python3 daily_report.py >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - name: Enviando notificaçao por Telegram 
