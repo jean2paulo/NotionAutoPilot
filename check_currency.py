@@ -83,7 +83,7 @@ if(check_max(usdclp_act, usdclp_column) != None):
 elif(check_min(usdclp_act, usdclp_column) != None):
     full_message += f"→ {check_min(usdclp_act, usdclp_column)}"
 else:
-    full_message += "\n"
+    full_message += ""
 
 # BRLCLP
 brlclp_column = 4
@@ -95,7 +95,7 @@ if(check_max(brlclp_act, brlclp_column) != None):
 elif(check_min(brlclp_act, brlclp_column) != None):
     full_message += f"→ {check_min(brlclp_act, brlclp_column)}"
 else:
-    full_message += "\n"
+    full_message += ""
 
 # USDBRL
 brlclp_column = 5
@@ -107,6 +107,6 @@ if(check_max(usdbrl_act, brlclp_column) != None):
 elif(check_min(usdbrl_act, brlclp_column) != None):
     full_message += f"→ {check_max(usdbrl_act, brlclp_column)}"
 else:
-    full_message += "\n"
+    full_message += ""
 
 print(full_message)
