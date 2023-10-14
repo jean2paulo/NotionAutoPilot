@@ -79,11 +79,11 @@ usdclp_act = get_cell_number(2, usdclp_column)
 usdclp_yesterday = get_cell_number(3, usdclp_column)
 
 if(usdclp_act > usdclp_yesterday):
-    sinal = "↗️"
+    sinal = "▲"
 else:
-    sinal = "↘️"
+    sinal = "▼"
 
-full_message += f"\n🇺🇸🇨🇱 → {format_clp(usdclp_act)}{sinal}"
+full_message += f"\n🇺🇸🇨🇱 → {format_clp(usdclp_act)} {sinal}"
 
 if(check_max(usdclp_act, usdclp_column) != None):
     full_message += f" {check_max(usdclp_act, usdclp_column)}"
@@ -98,11 +98,11 @@ brlclp_act = get_cell_number(2, brlclp_column)
 brlclp_yesterday = get_cell_number(3, brlclp_column)
 
 if(brlclp_act > brlclp_yesterday):
-    sinal = "↗️"
+    sinal = "▲"
 else:
-    sinal = "↘️"
+    sinal = "▼"
 
-full_message += f"\n🇧🇷🇨🇱 → {format_clp(brlclp_act)}{sinal}"
+full_message += f"\n🇧🇷🇨🇱 → {format_clp(brlclp_act)} {sinal}"
 
 if(check_max(brlclp_act, brlclp_column) != None):
     full_message += f" {check_max(brlclp_act, brlclp_column)}"
@@ -117,11 +117,11 @@ usdbrl_act = get_cell_number(2, usdbrl_column)
 usdbrl_yesterday = get_cell_number(3, usdbrl_column)
 
 if(usdbrl_act > usdbrl_yesterday):
-    sinal = "↗️"
+    sinal = "▲"
 else:
-    sinal = "↘️"
+    sinal = "▼"
 
-full_message += f"\n🇺🇸🇧🇷 → {format_brl(usdbrl_act)}{sinal}"
+full_message += f"\n🇺🇸🇧🇷 → {format_brl(usdbrl_act)} {sinal}"
 
 if(check_max(usdbrl_act, brlclp_column) != None):
     full_message += f" {check_max(usdbrl_act, brlclp_column)}"
