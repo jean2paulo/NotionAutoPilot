@@ -1,7 +1,19 @@
 import os
 import telebot
+from notion.tasks import utils
+from notion.tasks import create_tasks
+from notion.tasks import read_tasks
+from notion import birthday
+from notion import calendar
+from notion import commitment
+from notion import financial_month
 
-from utils import get_daily_horoscope
+from notion_client import Client
+
+from telegram import whatsapp
+from telegram import horoscope 
+
+#init
 
 telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 bot = telebot.TeleBot(telegram_bot_token)
@@ -10,39 +22,113 @@ bot = telebot.TeleBot(telegram_bot_token)
 def send_welcome(message):
     bot.reply_to(message, "Howdy, how are you doing?")
 
-@bot.message_handler(commands=['whatsapp'])
+@bot.message_handler(commands=[whatsapp.WHATSAPP_BOT_TERM])
 def send_wa_link(message):
-    number = message.text.replace('/whatsapp ', '')
-    bot.reply_to(message, f"Link: https://wa.me/{number}?text=I'm%20interested%20in%20your%20car%20for%20sale")
+    whatsapp.whatsapp_flow(message, bot)
 
-@bot.message_handler(commands=['horoscope'])
-def sign_handler(message):
-    text = "What's your zodiac sign?\nChoose one: *Aries*, *Taurus*, *Gemini*, *Cancer,* *Leo*, *Virgo*, *Libra*, *Scorpio*, *Sagittarius*, *Capricorn*, *Aquarius*, and *Pisces*."
-    sent_msg = bot.send_message(message.chat.id, text, parse_mode="Markdown")
-    bot.register_next_step_handler(sent_msg, day_handler)
+@bot.message_handler(commands=[horoscope.HOROSCOPE_BOT_TERM])
+def send_horoscope(message):
+    horoscope.horoscope_flow(message, bot)
+
+# NOTION
+
+# Ler as variáveis de ambiente
+notion_token = os.getenv('NOTION_TOKEN')
+
+# Configurar cliente de Notion
+notion = Client(auth=notion_token)
+
+# tasks
+
+@bot.message_handler(commands=[create_tasks.NOTION_TASK_CREATE_BOT_TERM])
+def create_task(message):
+    create_tasks.init(notion, message, bot)
+
+@bot.message_handler(commands=[read_tasks.NOTION_CHECK_TASKS_BOT_TERM])
+def check_tasks(message):
+    read_tasks.check_tasks(notion, message, bot)
+
+@bot.message_handler(commands=["notion_check_all_tasks"])
+def check_tasks(message):
+    full_message = read_tasks.check_all_tasks(notion)
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
+
+# birthday
+
+@bot.message_handler(commands=["notion_check_today_birthday"])
+def check_today_birthday(message):
+    full_message = birthday.check_today_birthday(notion)
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
+
+# calendario
+
+@bot.message_handler(commands=["notion_check_today_calendar"])
+def check_today_calendar(message):
+    full_message = calendar.check_today_calendar(notion)
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
+
+# financial month
+
+@bot.message_handler(commands=["notion_check_financial_month_total"])
+def check_financial_month_totals(message):
+    full_message = financial_month.check_financial_month_totals(notion)
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
 
 
-def day_handler(message):
-    sign = message.text
-    text = "What day do you want to know?\nChoose one: *TODAY*, *TOMORROW*, *YESTERDAY*, or a date in format YYYY-MM-DD."
-    sent_msg = bot.send_message(
-        message.chat.id, text, parse_mode="Markdown")
-    bot.register_next_step_handler(
-        sent_msg, fetch_horoscope, sign.capitalize())
+# commitment
 
+@bot.message_handler(commands=["notion_check_today_commitment"])
+def check_today_commitment(message):
+    full_message = commitment.check_today_commitment(notion)
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
 
-def fetch_horoscope(message, sign):
-    day = message.text
-    horoscope = get_daily_horoscope(sign, day)
-    data = horoscope["data"]
-    horoscope_message = f'*Horoscope:* {data["horoscope_data"]}\n*Sign:* {sign}\n*Day:* {data["date"]}'
-    bot.send_message(message.chat.id, "Here's your horoscope!")
-    bot.send_message(message.chat.id, horoscope_message, parse_mode="Markdown")
+# morning report
+@bot.message_handler(commands=["morning_report"])
+def morning_report(message):
+    birthday_message = birthday.check_today_birthday(notion)
+    calendar_message = calendar.check_today_calendar(notion)
+    commitment_message = commitment.check_today_commitment(notion)
+    tasks_message = read_tasks.check_all_tasks(notion)
+    financial_message = financial_month.check_financial_month_totals(notion)
 
+    full_message = "Bom dia Jean! ☀️\nEsse eh o seu reporte para o dia de hoje:\n\n"
+    full_message += f"{financial_message}\n\n"
+    full_message += f"{birthday_message}\n\n"
+    full_message += f"{calendar_message}\n\n"
+    full_message += f"{commitment_message}\n\n"
+    full_message += f"{tasks_message}\n"
+
+    bot.send_message(
+        message.chat.id, 
+        full_message,
+        parse_mode="Markdown"
+    )
+
+# mirror
 
 @bot.message_handler(func=lambda msg: True)
 def echo_all(message):
+    print(f"Respondendo mensagem -> {message}")
     bot.reply_to(message, message.text)
-
 
 bot.infinity_polling()

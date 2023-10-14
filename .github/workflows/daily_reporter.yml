@@ -11,7 +11,7 @@ on:
     #branches-ignore:
     #  - dev
   schedule:
-    - cron: "30 12,15,18,21 * * 1-5" # www.crontab.guru
+    - cron: "0 7 * * *" # www.crontab.guru
 
 jobs:
   update_data:
@@ -25,29 +25,21 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
-          pip3 install gspread oauth2client
           pip3 install notion-client
           
-      - id: 'auth'
-        name: Autenticando no Google Cloud..
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
-
       - name: Configurando variaveis de ambiente..
         run: |
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
-          echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
-      - name: Atualizando em Notion
+      - name: Consultando infos em Notion
         run: |
-          result = $(python3 update_quotes.py)
-          echo "::set-output name=update_quotes_result::$result"
+          result = $(python3 daily_report.py)
+          echo "::set-output name=daily_report_result::$result"
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Cotaçoes atualizadas $update_quotes_result!
+          message: $daily_report_result
           disable_notification: true

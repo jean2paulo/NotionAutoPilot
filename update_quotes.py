@@ -1,7 +1,15 @@
 import os
 import gspread
+import logging
+
 from notion_client import Client
 from oauth2client.service_account import ServiceAccountCredentials
+
+# Configurando o nível de log
+logging.basicConfig(filename='log_error.txt', level=logging.INFO)
+
+# Criando um logger
+logger = logging.getLogger()
 
 # Ler as variáveis de ambiente
 credentials_file = os.getenv('GOOGLE_CLOUD_CREDENTIALS_FILE')
@@ -30,6 +38,7 @@ worksheet = sh.worksheet(worksheet_name)
 
 # Percorrer todas as linhas da planilha
 data = worksheet.get_all_records(numericise_ignore=['all'])
+count_success = 0
 for row in data:
     try:
     
@@ -47,10 +56,9 @@ for row in data:
                 formatted_page_id,
                 properties={"Price":{"number": price}},
             )
-
-            print(f"✓ {name}: {price}")
-        else:
-            print(f"✖ {name}: #N/A")
+            count_success += 1
             
     except Exception as e:
-        print("Ocorreu um erro: ", e)
+        logger.error(f"[update_quotes] ERROR: {e.with_traceback}")
+
+print(f"{count_success}/{len(data)}")

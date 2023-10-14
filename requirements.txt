@@ -1,0 +1,4 @@
+pyTelegramBotAPI
+notion-client
+gspread
+oauth2client
