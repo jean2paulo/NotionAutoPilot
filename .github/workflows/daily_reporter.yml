@@ -33,7 +33,7 @@ jobs:
 
       - name: Consultando infos em Notion
         run: |
-          result = $(python3 daily_report.py)
+          result=$(python3 daily_report.py)
           echo "::set-output name=daily_report_result::$result"
 
       - name: Enviando notificaçao por Telegram 
