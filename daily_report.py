@@ -26,11 +26,18 @@ commitment_message = commitment.check_today_commitment(notion)
 tasks_message = read_tasks.check_all_tasks(notion)
 financial_message = financial_month.check_financial_month_totals(notion)
 
-full_message = "Bom dia Jean! ☀️\nEsse eh o seu reporte para o dia de hoje:\n\n"
-full_message += f"{financial_message}\n\n"
-full_message += f"{birthday_message}\n\n"
-full_message += f"{calendar_message}\n\n"
-full_message += f"{commitment_message}\n\n"
-full_message += f"{tasks_message}\n"
+full_message = f"""Bom dia Jean! ☀️
+Esse eh o seu reporte para o dia de hoje:
+
+{financial_message}
+
+{birthday_message}
+
+{calendar_message}
+
+{commitment_message}
+
+{tasks_message}
+"""
 
 print(full_message)
