@@ -41,5 +41,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ env.daily_report_result }}
+          message: ${{ daily_report_result }}
           disable_notification: true
