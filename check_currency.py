@@ -32,38 +32,40 @@ worksheet_name = 'MAX_MIN'  # Nome da planilha
 sh = googleClient.open_by_key(spreadsheet_id)
 worksheet = sh.worksheet(worksheet_name)
 
+def get_cell_number(row, column): return float(worksheet.cell(row, column).value.replace(",", "."))
+
 def format_brl(number): return "R$ {valor:,.2f}".format(valor=abs(number))
 def format_clp(number): return "$ {valor:,.0f}".format(valor=abs(number))
 def format_usd(number): return "$ {valor:,.2f}".format(valor=abs(number))
 
 def check_max(worksheet, currency_column):
-    act = worksheet.cell(2, currency_column).value
+    act = get_cell_number(2, currency_column)
 
-    if(act > worksheet.cell(12, currency_column).value):
+    if(act > get_cell_number(12, currency_column)):
         return '🔥 Maxima em 60 dias'
-    elif(act > worksheet.cell(11, currency_column).value):
+    elif(act > get_cell_number(11, currency_column)):
         return '🔴 Maxima em 45 dias' 
-    elif(act > worksheet.cell(10, currency_column).value):
+    elif(act > get_cell_number(10, currency_column)):
         return '💥 Maxima em 30 dias'
-    elif(act > worksheet.cell(9, currency_column).value):
+    elif(act > get_cell_number(9, currency_column)):
         return '❗ Maxima em 15 dias'
-    elif(act > worksheet.cell(8, currency_column).value):
+    elif(act > get_cell_number(8, currency_column)):
         return '❕ Maxima em 7 dias'
     else:
         return None
 
 def check_min(worksheet, currency_column):
-    act = worksheet.cell(2, currency_column).value
+    act = get_cell_number(2, currency_column)
 
-    if(act < worksheet.cell(7, currency_column).value):
+    if(act < get_cell_number(7, currency_column)):
         return '🔥 Minima em 60 dias'
-    elif(act < worksheet.cell(6, currency_column).value):
+    elif(act < get_cell_number(6, currency_column)):
         return '🔴 Minima em 45 dias' 
-    elif(act < worksheet.cell(5, currency_column).value):
+    elif(act < get_cell_number(5, currency_column)):
         return '💥 Minima em 30 dias'
-    elif(act < worksheet.cell(4, currency_column).value):
+    elif(act < get_cell_number(4, currency_column)):
         return '❗ Minima em 15 dias'
-    elif(act < worksheet.cell(3, currency_column).value):
+    elif(act < get_cell_number(3, currency_column)):
         return '❕ Minima em 7 dias'
     else:
         return None
@@ -73,7 +75,7 @@ full_message = '💱 Cotaçao\n'
 
 # USDCLP
 
-usdclp_act = worksheet.cell(2, 3).value
+usdclp_act = get_cell_number(2, 3)
 full_message += f"\n⏺ USDCLP: {format_clp(usdclp_act)}"
 
 if(check_max(usdclp_act) != None):
@@ -85,7 +87,7 @@ else:
 
 # BRLCLP
 
-brlclp_act = worksheet.cell(2, 4).value
+brlclp_act = get_cell_number(2, 4)
 full_message += f"\n⏺ BRLCLP: {format_clp(brlclp_act)}"
 
 if(check_max(brlclp_act) != None):
@@ -97,7 +99,7 @@ else:
 
 # USDBRL
 
-usdbrl_act = worksheet.cell(2, 5).value
+usdbrl_act = get_cell_number(2, 5)
 full_message += f"\n⏺ USDBRL: {format_brl(usdbrl_act)}"
 
 if(check_max(usdbrl_act) != None):
