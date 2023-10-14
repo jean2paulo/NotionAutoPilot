@@ -34,14 +34,13 @@ jobs:
       - name: Consultando infos em Notion
         id: consulta_notion
         run: |
-          result=$(python3 daily_report.py)
-          echo "::set-output name=daily_report_result::$result"
+          python3 daily_report.py
+          echo "::set-output name=daily_report_result::$(cat daily_report_output.txt)"
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: | 
-            ${{ steps.consulta_notion.outputs.daily_report_result }}
+          message: ${{ steps.consulta_notion.outputs.daily_report_result }}
           disable_notification: true
