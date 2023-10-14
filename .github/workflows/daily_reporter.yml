@@ -1,4 +1,4 @@
-name: Atualização de Cotaçao
+name: Daily Reporter
 
 on:
   workflow_dispatch:
