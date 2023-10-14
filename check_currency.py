@@ -38,7 +38,7 @@ def format_brl(number): return "R$ {valor:,.2f}".format(valor=abs(number))
 def format_clp(number): return "$ {valor:,.0f}".format(valor=abs(number))
 def format_usd(number): return "$ {valor:,.2f}".format(valor=abs(number))
 
-def check_max(worksheet, currency_column):
+def check_max(currency_column):
     act = get_cell_number(2, currency_column)
 
     if(act > get_cell_number(13, currency_column)):
@@ -46,7 +46,7 @@ def check_max(worksheet, currency_column):
     elif(act > get_cell_number(12, currency_column)):
         return '{💥 Max. 45 dias}' 
     elif(act > get_cell_number(11, currency_column)):
-        return '{🔴 Max. 30 dias}'
+        return '{💢 Max. 30 dias}'
     elif(act > get_cell_number(10, currency_column)):
         return '{❗ Max. 15 dias}'
     elif(act > get_cell_number(9, currency_column)):
@@ -54,19 +54,19 @@ def check_max(worksheet, currency_column):
     else:
         return None
 
-def check_min(worksheet, currency_column):
+def check_min(currency_column):
     act = get_cell_number(2, currency_column)
 
     if(act < get_cell_number(8, currency_column)):
-        return '{🔥 Min. 60 dias}'
+        return '🔥 Min. 60 dias'
     elif(act < get_cell_number(7, currency_column)):
-        return '{💥 Min. 45 dias}' 
+        return '💥 Min. 45 dias' 
     elif(act < get_cell_number(6, currency_column)):
-        return '{🔴 Min. 30 dias}'
+        return '💢 Min. 30 dias'
     elif(act < get_cell_number(5, currency_column)):
-        return '{❗ Min. 15 dias}'
+        return '❗ Min. 15 dias'
     elif(act < get_cell_number(4, currency_column)):
-        return '{❕ Min. 7 dias}'
+        return '❕ Min. 7 dias'
     else:
         return None
 
@@ -83,12 +83,12 @@ if(usdclp_act > usdclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇨🇱 → {sinal} {format_clp(usdclp_act)}"
+full_message += f"\n🇺🇸🇨🇱: {format_clp(usdclp_act)} {sinal}"
 
-if(check_max(usdclp_act, usdclp_column) != None):
-    full_message += f" {check_max(usdclp_act, usdclp_column)}"
-elif(check_min(usdclp_act, usdclp_column) != None):
-    full_message += f" {check_min(usdclp_act, usdclp_column)}"
+if(check_max(usdclp_column) != None):
+    full_message += f" → {check_max(usdclp_column)}"
+elif(check_min(usdclp_column) != None):
+    full_message += f" → {check_min(usdclp_column)}"
 else:
     full_message += ""
 
@@ -102,12 +102,12 @@ if(brlclp_act > brlclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇧🇷🇨🇱 → {sinal} {format_clp(brlclp_act)}"
+full_message += f"\n🇧🇷🇨🇱: {format_clp(brlclp_act)} {sinal}"
 
-if(check_max(brlclp_act, brlclp_column) != None):
-    full_message += f" {check_max(brlclp_act, brlclp_column)}"
-elif(check_min(brlclp_act, brlclp_column) != None):
-    full_message += f" {check_min(brlclp_act, brlclp_column)}"
+if(check_max(brlclp_column) != None):
+    full_message += f" → {check_max(brlclp_column)}"
+elif(check_min(brlclp_column) != None):
+    full_message += f" → {check_min(brlclp_column)}"
 else:
     full_message += ""
 
@@ -121,12 +121,12 @@ if(usdbrl_act > usdbrl_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇧🇷 → {sinal} {format_brl(usdbrl_act)}"
+full_message += f"\n🇺🇸🇧🇷: {format_brl(usdbrl_act)} {sinal}"
 
-if(check_max(usdbrl_act, brlclp_column) != None):
-    full_message += f" {check_max(usdbrl_act, brlclp_column)}"
-elif(check_min(usdbrl_act, brlclp_column) != None):
-    full_message += f" {check_max(usdbrl_act, brlclp_column)}"
+if(check_max(brlclp_column) != None):
+    full_message += f" → {check_max(brlclp_column)}"
+elif(check_min(brlclp_column) != None):
+    full_message += f" → {check_max(brlclp_column)}"
 else:
     full_message += ""
 
