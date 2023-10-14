@@ -76,36 +76,36 @@ full_message = '💱 Cotaçao\n'
 # USDCLP
 usdclp_column = 3
 usdclp_act = get_cell_number(2, usdclp_column)
-full_message += f"\n⏺ USDCLP: {format_clp(usdclp_act)}"
+full_message += f"\n🇺🇸🇨🇱: {format_clp(usdclp_act)}"
 
 if(check_max(usdclp_act, usdclp_column) != None):
-    full_message += f"→ {check_max(usdclp_act, usdclp_column)}"
+    full_message += f" → {check_max(usdclp_act, usdclp_column)}"
 elif(check_min(usdclp_act, usdclp_column) != None):
-    full_message += f"→ {check_min(usdclp_act, usdclp_column)}"
+    full_message += f" → {check_min(usdclp_act, usdclp_column)}"
 else:
     full_message += ""
 
 # BRLCLP
 brlclp_column = 4
 brlclp_act = get_cell_number(2, brlclp_column)
-full_message += f"\n⏺ BRLCLP: {format_clp(brlclp_act)}"
+full_message += f"\n🇧🇷🇨🇱: {format_clp(brlclp_act)}"
 
 if(check_max(brlclp_act, brlclp_column) != None):
-    full_message += f"→ {check_max(brlclp_act, brlclp_column)}"
+    full_message += f" → {check_max(brlclp_act, brlclp_column)}"
 elif(check_min(brlclp_act, brlclp_column) != None):
-    full_message += f"→ {check_min(brlclp_act, brlclp_column)}"
+    full_message += f" → {check_min(brlclp_act, brlclp_column)}"
 else:
     full_message += ""
 
 # USDBRL
 brlclp_column = 5
 usdbrl_act = get_cell_number(2, brlclp_column)
-full_message += f"\n⏺ USDBRL: {format_brl(usdbrl_act)}"
+full_message += f"\n🇺🇸🇧🇷: {format_brl(usdbrl_act)}"
 
 if(check_max(usdbrl_act, brlclp_column) != None):
-    full_message += f"→ {check_max(usdbrl_act, brlclp_column)}"
+    full_message += f" → {check_max(usdbrl_act, brlclp_column)}"
 elif(check_min(usdbrl_act, brlclp_column) != None):
-    full_message += f"→ {check_max(usdbrl_act, brlclp_column)}"
+    full_message += f" → {check_max(usdbrl_act, brlclp_column)}"
 else:
     full_message += ""
 
