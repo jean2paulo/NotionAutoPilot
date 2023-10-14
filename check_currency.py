@@ -83,7 +83,7 @@ if(usdclp_act > usdclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇨🇱 → {format_clp(usdclp_act)} {sinal}"
+full_message += f"\n🇺🇸🇨🇱 → {sinal} {format_clp(usdclp_act)}"
 
 if(check_max(usdclp_act, usdclp_column) != None):
     full_message += f" {check_max(usdclp_act, usdclp_column)}"
@@ -102,7 +102,7 @@ if(brlclp_act > brlclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇧🇷🇨🇱 → {format_clp(brlclp_act)} {sinal}"
+full_message += f"\n🇧🇷🇨🇱 → {sinal} {format_clp(brlclp_act)}"
 
 if(check_max(brlclp_act, brlclp_column) != None):
     full_message += f" {check_max(brlclp_act, brlclp_column)}"
@@ -121,7 +121,7 @@ if(usdbrl_act > usdbrl_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇧🇷 → {format_brl(usdbrl_act)} {sinal}"
+full_message += f"\n🇺🇸🇧🇷 → {sinal} {format_brl(usdbrl_act)}"
 
 if(check_max(usdbrl_act, brlclp_column) != None):
     full_message += f" {check_max(usdbrl_act, brlclp_column)}"
