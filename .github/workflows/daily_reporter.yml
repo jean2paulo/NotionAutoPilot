@@ -32,6 +32,7 @@ jobs:
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
 
       - name: Consultando infos em Notion
+        id: consulta_notion
         run: |
           result=$(python3 daily_report.py)
           echo "::set-output name=daily_report_result::$result"
@@ -41,5 +42,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ daily_report_result }}
+          message: "${{ steps.consulta_notion.outputs.daily_report_result }}"
           disable_notification: true
