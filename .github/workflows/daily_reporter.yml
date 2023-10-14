@@ -34,9 +34,8 @@ jobs:
       - name: Consultando infos em Notion
         id: consulta_notion
         run: |
-          result=$(python3 daily_report.py)
-          echo 'daily_report_result<<EOF' >> $GITHUB_ENV
-          result >> $GITHUB_ENV
+          echo 'RESULT<<EOF' >> $GITHUB_ENV
+          $(python3 daily_report.py) >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
       - name: Enviando notificaçao por Telegram 
@@ -44,5 +43,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: ${{ steps.consulta_notion.outputs.daily_report_result }}
+          message: ${{ env.RESULT }}
           disable_notification: true
