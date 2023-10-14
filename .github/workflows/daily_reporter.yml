@@ -35,7 +35,9 @@ jobs:
         id: consulta_notion
         run: |
           result=$(python3 daily_report.py)
-          echo "daily_report_result=$result" >> $GITHUB_OUTPUT
+          echo 'daily_report_result<<EOF' >> $GITHUB_ENV
+          result >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
