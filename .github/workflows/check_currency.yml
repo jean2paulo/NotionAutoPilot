@@ -1,4 +1,4 @@
-name: Atualização de Cotaçao
+name: Daily Reporter
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
     #branches-ignore:
     #  - dev
   schedule:
-    - cron: "30 12,15,18,21 * * 1-5" # www.crontab.guru
+    - cron: "0 7 * * *" # www.crontab.guru
 
 jobs:
   update_data:
@@ -25,7 +25,6 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
-          pip3 install gspread oauth2client
           pip3 install notion-client
           
       - id: 'auth'
@@ -36,18 +35,18 @@ jobs:
 
       - name: Configurando variaveis de ambiente..
         run: |
-          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
           echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
-
-      - name: Atualizando em Notion
+  
+      - name: Consultando infos em Google Sheets (multiple lines)
         run: |
-          result = python3 update_quotes.py
-          echo "RESULT=$result" >> $GITHUB_ENV
+          echo 'RESULT<<EOF' >> $GITHUB_ENV
+          python3 check_currency.py >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Cotaçoes atualizadas ${{ env.ONE_LINE_TEXT_ENV_VAR }}!
+          message: ${{ env.RESULT }}
           disable_notification: true
