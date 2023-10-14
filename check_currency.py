@@ -37,33 +37,33 @@ def format_clp(number): return "$ {valor:,.0f}".format(valor=abs(number))
 def format_usd(number): return "$ {valor:,.2f}".format(valor=abs(number))
 
 def check_max(worksheet, currency_column):
-    act = worksheet.cell(1, currency_column).value
+    act = worksheet.cell(2, currency_column).value
 
-    if(act > worksheet.cell(11, currency_column).value):
+    if(act > worksheet.cell(12, currency_column).value):
         return '🔥 Maxima em 60 dias'
-    elif(act > worksheet.cell(10, currency_column).value):
+    elif(act > worksheet.cell(11, currency_column).value):
         return '🔴 Maxima em 45 dias' 
-    elif(act > worksheet.cell(9, currency_column).value):
+    elif(act > worksheet.cell(10, currency_column).value):
         return '💥 Maxima em 30 dias'
-    elif(act > worksheet.cell(8, currency_column).value):
+    elif(act > worksheet.cell(9, currency_column).value):
         return '❗ Maxima em 15 dias'
-    elif(act > worksheet.cell(7, currency_column).value):
+    elif(act > worksheet.cell(8, currency_column).value):
         return '❕ Maxima em 7 dias'
     else:
         return None
 
 def check_min(worksheet, currency_column):
-    act = worksheet.cell(1, currency_column).value
+    act = worksheet.cell(2, currency_column).value
 
-    if(act < worksheet.cell(6, currency_column).value):
+    if(act < worksheet.cell(7, currency_column).value):
         return '🔥 Minima em 60 dias'
-    elif(act < worksheet.cell(5, currency_column).value):
+    elif(act < worksheet.cell(6, currency_column).value):
         return '🔴 Minima em 45 dias' 
-    elif(act < worksheet.cell(4, currency_column).value):
+    elif(act < worksheet.cell(5, currency_column).value):
         return '💥 Minima em 30 dias'
-    elif(act < worksheet.cell(3, currency_column).value):
+    elif(act < worksheet.cell(4, currency_column).value):
         return '❗ Minima em 15 dias'
-    elif(act < worksheet.cell(2, currency_column).value):
+    elif(act < worksheet.cell(3, currency_column).value):
         return '❕ Minima em 7 dias'
     else:
         return None
@@ -73,7 +73,7 @@ full_message = '💱 Cotaçao\n'
 
 # USDCLP
 
-usdclp_act = worksheet.cell(1, 2).value
+usdclp_act = worksheet.cell(2, 3).value
 full_message += f"\n⏺ USDCLP: {format_clp(usdclp_act)}"
 
 if(check_max(usdclp_act) != None):
@@ -85,7 +85,7 @@ else:
 
 # BRLCLP
 
-brlclp_act = worksheet.cell(1, 3).value
+brlclp_act = worksheet.cell(2, 4).value
 full_message += f"\n⏺ BRLCLP: {format_clp(brlclp_act)}"
 
 if(check_max(brlclp_act) != None):
@@ -97,7 +97,7 @@ else:
 
 # USDBRL
 
-usdbrl_act = worksheet.cell(1, 4).value
+usdbrl_act = worksheet.cell(2, 5).value
 full_message += f"\n⏺ USDBRL: {format_brl(usdbrl_act)}"
 
 if(check_max(usdbrl_act) != None):
