@@ -83,12 +83,12 @@ if(usdclp_act > usdclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇨🇱: {format_clp(usdclp_act)} {sinal}"
+full_message += f"\n🇺🇸🇨🇱 → {format_clp(usdclp_act)} {sinal}"
 
 if(check_max(usdclp_column) != None):
-    full_message += f" → {check_max(usdclp_column)}"
+    full_message += f" ({check_max(usdclp_column)})"
 elif(check_min(usdclp_column) != None):
-    full_message += f" → {check_min(usdclp_column)}"
+    full_message += f" ({check_min(usdclp_column)})"
 else:
     full_message += ""
 
@@ -102,12 +102,12 @@ if(brlclp_act > brlclp_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇧🇷🇨🇱: {format_clp(brlclp_act)} {sinal}"
+full_message += f"\n🇧🇷🇨🇱 → {format_clp(brlclp_act)} {sinal}"
 
 if(check_max(brlclp_column) != None):
-    full_message += f" → {check_max(brlclp_column)}"
+    full_message += f" ({check_max(brlclp_column)})"
 elif(check_min(brlclp_column) != None):
-    full_message += f" → {check_min(brlclp_column)}"
+    full_message += f" ({check_min(brlclp_column)})"
 else:
     full_message += ""
 
@@ -121,12 +121,12 @@ if(usdbrl_act > usdbrl_yesterday):
 else:
     sinal = "▼"
 
-full_message += f"\n🇺🇸🇧🇷: {format_brl(usdbrl_act)} {sinal}"
+full_message += f"\n🇺🇸🇧🇷 → {format_brl(usdbrl_act)} {sinal}"
 
 if(check_max(brlclp_column) != None):
-    full_message += f" → {check_max(brlclp_column)}"
+    full_message += f" ({check_max(brlclp_column)})"
 elif(check_min(brlclp_column) != None):
-    full_message += f" → {check_max(brlclp_column)}"
+    full_message += f" ({check_min(brlclp_column)})"
 else:
     full_message += ""
 
