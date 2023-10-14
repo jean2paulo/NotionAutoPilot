@@ -1,4 +1,4 @@
-name: Daily Reporter
+name: Check Currency
 
 on:
   workflow_dispatch:
