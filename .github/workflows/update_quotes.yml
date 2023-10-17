@@ -41,13 +41,14 @@ jobs:
 
       - name: Atualizando em Notion
         run: |
-          result = python3 update_quotes.py
-          echo "RESULT=$result" >> $GITHUB_ENV
+          echo 'RESULT<<EOF' >> $GITHUB_ENV
+          python3 update_quotes.py >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Cotaçoes atualizadas ${{ env.ONE_LINE_TEXT_ENV_VAR }}!
+          message: Cotaçoes atualizadas (${{ env.RESULT }})!
           disable_notification: true
