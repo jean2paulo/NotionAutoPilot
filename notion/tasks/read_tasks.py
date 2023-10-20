@@ -55,7 +55,7 @@ def response_task(notion, message, bot, pageId):
 def check_all_tasks(notion):        
     data = notion_utils.notion_query(notion, task_utils.NOTION_PROJECT_PAGE_ID,
         filter=notion_utils.notion_filter_status("Status", task_utils.SPRINT_STATUS),
-        sort=notion_utils.notion_sort_asc("Projeto")
+        sort=[notion_utils.notion_sort_asc("Projeto")]
     )
     if(len(data["results"]) > 0):
         full_message = "✔️ Tarefas"
