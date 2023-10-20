@@ -58,13 +58,13 @@ def check_all_tasks(notion):
         sort=[notion_utils.notion_sort_asc("Projeto")]
     )
     if(len(data["results"]) > 0):
-        full_message = "✔️ Tarefas"
+        full_message = "✔️ Tarefas\n_________\n"
         last_relation_id = -1
         for result in data["results"]:
             relation_id = notion_utils.extract_relation_id(result, "Projeto")
             if relation_id != last_relation_id:
                 project = task_utils.extract_project_name(relation_id)
-                full_message += f"\n{project}\n"
+                full_message += f"\n\n{project}\n"
                 last_relation_id = relation_id
                 
             title = notion_utils.extract_title(result, "Nome")

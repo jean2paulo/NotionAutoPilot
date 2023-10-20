@@ -18,7 +18,6 @@ notion = Client(auth=notion_token)
 
 tasks_message = read_tasks.check_all_tasks(notion)
 
-full_message = "Tasks:\n\n"
-full_message += f"{tasks_message}\n"
+full_message = f"{tasks_message}\n"
 
 print(full_message)
