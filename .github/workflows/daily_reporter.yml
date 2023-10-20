@@ -11,7 +11,7 @@ on:
     #branches-ignore:
     #  - dev
   schedule:
-    - cron: "0 7 * * *" # www.crontab.guru
+    - cron: "0 9 * * *" # www.crontab.guru
 
 jobs:
   update_data:
@@ -31,12 +31,26 @@ jobs:
         run: |
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Consultando infos em Notion (multiple lines)
+      - name: Consultando infos em Notion
         run: |
           echo 'RESULT<<EOF' >> $GITHUB_ENV
           python3 daily_report.py >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
 
+      - name: Enviando notificaçao por Telegram 
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: ${{ env.RESULT }}
+          disable_notification: true
+
+      - name: Consultando tarefas em Notion
+        run: |
+            echo 'RESULT<<EOF' >> $GITHUB_ENV
+            python3 daily_tasks.py >> $GITHUB_ENV
+            echo 'EOF' >> $GITHUB_ENV
+  
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
         with:

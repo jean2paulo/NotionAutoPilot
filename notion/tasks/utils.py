@@ -81,24 +81,22 @@ def searchQuery(pageId, status):
         }
 
     
-def extract_project_name(result):
-    page_id = notion_utils.extract_relation_id(result, "Projeto")
-        
+def extract_project_name(page_id):
     if(page_id == SPRINTER_PAGE_ID):
-        return 'Sprinter'
+        return '🚐 Sprinter'
     elif(page_id == FINANCAS_PAGE_ID):
-        return 'Finanças'
+        return '💰 Finanças'
     elif(page_id == SELF_IMPROVE_PAGE_ID):
-        return 'Self-Improve'
+        return '🧘🏻 Self-Improve'
     elif(page_id == CHILE_PAGE_ID):
-        return 'Chile'
+        return '🇨🇱 Chile'
     elif(page_id == SAUDE_PAGE_ID):
-        return 'Saude'
+        return '🏥 Saude'
     elif(page_id == NOTION_PAGE_ID):
-        return 'Notion'    
+        return '📚 Notion'    
     elif(page_id == DEV_PAGE_ID):
-        return 'Dve'    
+        return '🖥️ Dev'    
     elif(page_id == BRAZIL_PAGE_ID):
-        return 'Brasil'        
+        return '🇧🇷 Brasil'        
     else:
         return page_id

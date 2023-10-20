@@ -54,15 +54,22 @@ def response_task(notion, message, bot, pageId):
 
 def check_all_tasks(notion):        
     data = notion_utils.notion_query(notion, task_utils.NOTION_PROJECT_PAGE_ID,
-            filter=notion_utils.notion_filter_status("Status", task_utils.SPRINT_STATUS)
-        )
+        filter=notion_utils.notion_filter_status("Status", task_utils.SPRINT_STATUS),
+        sort=notion_utils.notion_sort_asc("Projeto")
+    )
     if(len(data["results"]) > 0):
-        full_message = "✅ Tarefas"
+        full_message = "✔️ Tarefas"
+        last_relation_id = -1
         for result in data["results"]:
+            relation_id = notion_utils.extract_relation_id(result, "Projeto")
+            if relation_id != last_relation_id:
+                project = task_utils.extract_project_name(relation_id)
+                full_message += f"\n{project}\n"
+                last_relation_id = relation_id
+                
             title = notion_utils.extract_title(result, "Nome")
-            project = task_utils.extract_project_name(result)
-            full_message += f"\n⏺ {project} - {title}"
+            full_message += f"\n→ {title}"
     else:
-        full_message = "✅ Sem tarefas!"
+        full_message = "✔️ Sem tarefas!"
     
     return full_message

@@ -11,7 +11,7 @@ on:
     #branches-ignore:
     #  - dev
   schedule:
-    - cron: "0 13,16,22 * * 1-5" # www.crontab.guru
+    - cron: "0 12,15,21 * * 1-5" # www.crontab.guru
 
 jobs:
   update_data:
