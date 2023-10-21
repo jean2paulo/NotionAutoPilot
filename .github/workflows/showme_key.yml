@@ -1,0 +1,39 @@
+name: Atualização de Cotaçao
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório..
+        uses: actions/checkout@v3
+
+      - name: Instalando dependências..
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install gspread oauth2client
+          pip3 install notion-client
+          
+      - id: 'auth'
+        name: Autenticando no Google Cloud..
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
+
+      - name: Configurando variaveis de ambiente..
+        run: |
+          echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
+
+      - name: Atualizando em Notion
+        run: |
+          echo 'RESULT<<EOF' >> $GITHUB_ENV
+          python3 showme_file.py >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Show me the file..
+        run: |
+            echo ${{ env.RESULT }}
