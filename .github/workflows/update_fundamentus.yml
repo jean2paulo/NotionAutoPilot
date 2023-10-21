@@ -29,7 +29,8 @@ jobs:
         run: |
           echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
-      - name: Atualizando em Notion
-        run: |
-          python3 fundamentus/update_stocks.py
-          python3 fundamentus/update_fiis.py
+      - name: Atualizando fundamentus Stocks
+        run: python3 fundamentus/update_stocks.py
+
+      - name: Atualizando fundamentus Fiis
+        run: python3 fundamentus/update_fiis.py

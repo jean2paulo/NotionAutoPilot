@@ -54,7 +54,7 @@ for index, row in enumerate(data, start=2):
 
         # Cotacao
         try:
-            cotacao = df.Cotacao.values[0]
+            cotacao = int(df.Cotacao.values[0])/100
             worksheet.update_cell(index, COTACAO_COLUMN, cotacao)
         except Exception as e:
             print(f'[ERRO - Cotacao] {name} : {e}')
