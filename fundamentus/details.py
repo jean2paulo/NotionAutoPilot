@@ -4,19 +4,18 @@ detalhes:
     Info from .../detalhes.php?papel=
 """
 
-from . import utils
-
 # import fundamentus.utils as utils
 
 # from fundamentus.utils import dt_iso8601
 # from fundamentus.utils import from_pt_br
 # from fundamentus.utils import fmt_dec
 
+from fundamentus import utils
 import requests
-import requests_cache
-import pandas   as pd
+import pandas as pd
 import time
 import logging, sys
+from io import StringIO
 
 from collections import OrderedDict
 
@@ -81,17 +80,9 @@ def get_detalhes_papel(papel):
     """
 
     ## raw
-    logging.debug('1: get raw [{}]'.format(papel))
     tables = get_detalhes_raw(papel)
-    if len(tables) == 5:
-        pass
-    else: # pragma: no cover
-        logging.debug('HTML tables not rendered as expected. Len={}. Skipped.'.format(len(tables)))
-        return None
-
 
     ## Build df by putting k/v together
-    logging.debug('2: cleanup raw')
     keys = []
     vals = []
 
@@ -191,12 +182,11 @@ def get_detalhes_papel(papel):
             logging.debug('NaN. Skipped.')
 
     # Last fixes
-    hf['Data_ult_cot']           = utils.dt_iso8601(hf['Data_ult_cot'])
-    hf['Ult_balanco_processado'] = utils.dt_iso8601(hf['Ult_balanco_processado'])
+    # hf['Data_ult_cot']           = utils.dt_iso8601(hf['Data_ult_cot'])
+    # hf['Ult_balanco_processado'] = utils.dt_iso8601(hf['Ult_balanco_processado'])
 
     result = pd.DataFrame(hf, index=[papel])
 
-    logging.debug('3: cleanup done')
     return result
 
 
@@ -219,54 +209,17 @@ def get_detalhes_raw(papel='WEGE3'):
            'Accept-Encoding': 'gzip, deflate',
            }
 
-    with requests_cache.enabled():
-        content = requests.get(url, headers=hdr)
-
-        if content.from_cache:
-            logging.debug('.../detalhes.php?papel={}: [CACHED]'.format(papel))
-        else: # pragma: no cover
-            logging.debug('.../detalhes.php?papel={}: sleeping...'.format(papel))
-            time.sleep(.500) # 500 ms
+    response = requests.get(url, headers=hdr)
+    
+    if response.status_code == 200:
+        html_io = StringIO(response.text)
+    else:
+        html_io = '<html></html>'
 
     ## parse
-    tables_html = pd.read_html(content.text, decimal=",", thousands='.')
+    tables_html = pd.read_html(html_io)
 
     return tables_html
-
-
-def list_papel_all():
-    """
-    Get list of all companies, from 'detalhes' page
-      URL:
-        http://fundamentus.com.br/detalhes.php?papel=''
-
-    Output:
-      list
-    """
-
-    ##
-    url = 'http://fundamentus.com.br/detalhes.php?papel='
-    hdr = {'User-agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201',
-           'Accept': 'text/html, text/plain, text/css, text/sgml, */*;q=0.01',
-           'Accept-Encoding': 'gzip, deflate',
-           }
-
-    with requests_cache.enabled():
-        content = requests.get(url, headers=hdr)
-
-        if content.from_cache:
-            logging.debug('list .../detalhes.php?papel= : [CACHED]')
-        else: # pragma: no cover
-            logging.debug('list .../detalhes.php?papel= : sleeping...')
-            time.sleep(.500) # 500 ms
-
-    ## parse
-    df = pd.read_html(content.text, decimal=",", thousands='.')[0]
-
-    lst = list(df['Papel'])
-    logging.info('members in list = {}'.format(len(lst)))
-
-    return lst
 
 
 ## res:[

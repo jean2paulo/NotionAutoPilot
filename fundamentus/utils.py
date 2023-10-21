@@ -5,11 +5,10 @@ utils:
 """
 
 import requests
-import requests_cache
 import pandas   as pd
 import logging
 
-from tabulate import tabulate
+#from tabulate import tabulate
 from datetime import datetime
 from dateutil.parser import parse
 
@@ -118,19 +117,19 @@ def print_csv(data):
     return
 
 
-def print_table(data):
-    """
-    Text table printed to stdout
-      - separator: '|'
-      - fixed-width columns for better reading
-    """
-    print( tabulate ( data
-                    , headers=data.columns
-                    , tablefmt='presto'
-                    , floatfmt=".4f"
-                    , disable_numparse=False
-               )
-     )
+# def print_table(data):
+#     """
+#     Text table printed to stdout
+#       - separator: '|'
+#       - fixed-width columns for better reading
+#     """
+#     print( tabulate ( data
+#                     , headers=data.columns
+#                     , tablefmt='presto'
+#                     , floatfmt=".4f"
+#                     , disable_numparse=False
+#                )
+#      )
 
-    return
+#     return
 
