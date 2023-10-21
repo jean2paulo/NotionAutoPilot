@@ -10,10 +10,9 @@ detalhes:
 # from fundamentus.utils import from_pt_br
 # from fundamentus.utils import fmt_dec
 
-from fundamentus import utils
+import utils
 import requests
 import pandas as pd
-import time
 import logging, sys
 from io import StringIO
 
