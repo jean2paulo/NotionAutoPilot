@@ -2,3 +2,5 @@ pyTelegramBotAPI
 notion-client
 gspread
 oauth2client
+pandas
+lxml
