@@ -1,7 +1,8 @@
 from notion import utils as notion_utils
 
 # Projects Notion Page
-FINANCIAL_MONTH_PAGE_ID = "4a7dd04804cd42b78c84f38edd5924fa"
+# URL: https://www.notion.so/ecc237c39382476e8cefc7224ca5f87c?v=1234dea8d48a4f618c78279d00149ad6&pvs=4
+FINANCIAL_MONTH_PAGE_ID = "ecc237c39382476e8cefc7224ca5f87c"
 
 def check_financial_month_totals(notion):
     data = notion_utils.notion_query(notion, FINANCIAL_MONTH_PAGE_ID, 
