@@ -30,6 +30,7 @@ jobs:
 
       - name: Configurando variaveis de ambiente..
         run: |
+          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
           echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
 
       # - name: Stocks - Atualizando a planilha
