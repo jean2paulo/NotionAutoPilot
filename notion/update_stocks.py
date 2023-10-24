@@ -32,7 +32,7 @@ googleClient = gspread.authorize(credentials)
 notion = Client(auth=notion_token)
 
 # ID da planilha do Google Sheets
-spreadsheet_id = '83403ccb183741aea302a535e20c4e1f'
+spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
 worksheet_name = 'FUNDAMENTUS_STOCKS'  # Nome da planilha
 sh = googleClient.open_by_key(spreadsheet_id)
 worksheet = sh.worksheet(worksheet_name)
