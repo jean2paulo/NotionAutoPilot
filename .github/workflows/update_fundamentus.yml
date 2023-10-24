@@ -42,5 +42,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: 'Fundamentus atualizado' 
+          message: '👍🏼 Fundamentus atualizado!' 
           disable_notification: true
