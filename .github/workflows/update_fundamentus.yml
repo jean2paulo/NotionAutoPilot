@@ -2,6 +2,8 @@ name: Update de Fundamentus
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: "0 1 * * 7" # www.crontab.guru
 
 jobs:
   update_data:
@@ -34,3 +36,11 @@ jobs:
 
       - name: Atualizando fundamentus Fiis
         run: python3 fundamentus/update_fiis.py
+
+      - name: Enviando notificaçao por Telegram 
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_BOT_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: 'Fundamentus atualizado' 
+          disable_notification: true
