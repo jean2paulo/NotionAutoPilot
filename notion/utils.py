@@ -1,13 +1,24 @@
 import locale
 
+# ---- UPDATE ---- #
+
+def notion_update(notion, page_id, properties):
+    notion.pages.update(page_id, properties = properties)
+
+def notion_update_number(property_name, value):
+    return { property_name:{ "number": value } }
+
+def notion_update_string(property_name, value):
+    return { property_name:{'rich_text': [{'text': { "content": value} }] } }
+
+# ---- QUERY ---- #
+
 def notion_query(notion, databaseId, filter, sort=None):
     if(sort==None):
         query = {"database_id": databaseId,"filter": filter}
     else:
         query = {"database_id": databaseId,"filter": filter, "sorts": sort}
     return notion.databases.query(**query)
-
-# ---- REQUEST ---- #
 
 # Filter
 
@@ -75,6 +86,9 @@ def extract_formula_number(result, property_name):
         return 0
     
 # ---- FORMAT ---- #
+
+def format_page_id(page_id): 
+    return f"{page_id[:8]}-{page_id[8:12]}-{page_id[12:16]}-{page_id[16:20]}-{page_id[20:]}"
 
 def format_real(number):
     if number < 0:

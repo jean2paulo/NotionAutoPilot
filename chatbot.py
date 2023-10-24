@@ -4,7 +4,7 @@ from notion.tasks import utils
 from notion.tasks import create_tasks
 from notion.tasks import read_tasks
 from notion import birthday
-from notion import calendar
+from notion import my_calendar
 from notion import commitment
 from notion import financial_month
 
@@ -72,7 +72,7 @@ def check_today_birthday(message):
 
 @bot.message_handler(commands=["notion_check_today_calendar"])
 def check_today_calendar(message):
-    full_message = calendar.check_today_calendar(notion)
+    full_message = my_calendar.check_today_calendar(notion)
     bot.send_message(
         message.chat.id, 
         full_message,
@@ -106,7 +106,7 @@ def check_today_commitment(message):
 @bot.message_handler(commands=["morning_report"])
 def morning_report(message):
     birthday_message = birthday.check_today_birthday(notion)
-    calendar_message = calendar.check_today_calendar(notion)
+    calendar_message = my_calendar.check_today_calendar(notion)
     commitment_message = commitment.check_today_commitment(notion)
     tasks_message = read_tasks.check_all_tasks(notion)
     financial_message = financial_month.check_financial_month_totals(notion)

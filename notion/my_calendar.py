@@ -1,4 +1,4 @@
-from notion import utils as notion_utils
+import utils as notion_utils
 
 # Projects Notion Page
 CALENDAR_PAGE_ID = "2f507df1949845c0ae7628401b9f273b"
@@ -12,7 +12,7 @@ def check_today_calendar(notion):
         full_message = "🗓️ Eventos"
         for result in data["results"]:
             name = notion_utils.extract_title(result, "Descriçao")
-            full_message += f"\n⏺ {name}" 
+            full_message += f"\n→ {name}" 
     else:
         full_message = "🗓️ Sem eventos!"
 

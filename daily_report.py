@@ -3,7 +3,7 @@ import logging
 
 from notion_client import Client
 from notion import birthday
-from notion import calendar
+from notion import my_calendar
 from notion import commitment
 from notion import financial_month
 
@@ -20,7 +20,7 @@ notion_token = os.getenv('NOTION_TOKEN')
 notion = Client(auth=notion_token)
 
 birthday_message = birthday.check_today_birthday(notion)
-calendar_message = calendar.check_today_calendar(notion)
+calendar_message = my_calendar.check_today_calendar(notion)
 commitment_message = commitment.check_today_commitment(notion)
 financial_message = financial_month.check_financial_month_totals(notion)
 

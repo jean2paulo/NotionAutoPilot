@@ -12,7 +12,7 @@ def check_today_commitment(notion):
         full_message = "🔄 Compromissos"
         for result in data["results"]:
             name = notion_utils.extract_title(result, "Descriçao")
-            full_message += f"\n⏺ {name}" 
+            full_message += f"\n→ {name}" 
     else:
         full_message = "🔄 Sem compromisso!"
     

@@ -14,7 +14,9 @@ CHILE_PAGE_ID = "8a623559-e5fe-4cbf-a413-2efb4edbcba9"
 SAUDE_PAGE_ID = "97333f1c-5770-4aed-a0a1-cb3d5ba4066f"
 BRAZIL_PAGE_ID = "b90f9655-4fc0-4a69-9efd-8d94e62498fb"
 FINANCAS_PAGE_ID = ""
+DIA_DIA_PAGE_ID = "c73241a9-ac26-4748-b6c2-b11030ea67ea"
 NOTION_PAGE_ID = "fe1636b4-3233-4202-b8ef-60219e00752b"
+VIAJA_JEAN_PAGE_ID = "958c9312-893c-4514-9731-34880728dd70"
 
 # Status
 DONE_STATUS = "Done"
@@ -96,7 +98,11 @@ def extract_project_name(page_id):
         return '📚 Notion'    
     elif(page_id == DEV_PAGE_ID):
         return '🖥️ Dev'    
+    elif(page_id == DIA_DIA_PAGE_ID):
+        return '☀️ Dia a dia'
     elif(page_id == BRAZIL_PAGE_ID):
-        return '🇧🇷 Brasil'        
+        return '🇧🇷 Brasil'
+    elif(page_id == VIAJA_JEAN_PAGE_ID):
+        return '📸 @viaja.jean'  
     else:
         return page_id

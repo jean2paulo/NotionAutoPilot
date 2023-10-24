@@ -16,7 +16,9 @@ def check_financial_month_totals(notion):
         actual = notion_utils.extract_formula_number(result, "Valor Atual")
         percent = actual/invested - 1
 
-        full_message += f"\n⏺ {notion_utils.format_real(invested)}\n⏺ {notion_utils.format_real(actual)}" 
+        full_message += f"\n→ {notion_utils.format_real(invested)}"
+        full_message += f"\n→ {notion_utils.format_real(actual)}"
+        
         if(percent > 0):
             full_message += f"\t\t📈 {notion_utils.formatar_percentage(percent)}"
         else:
