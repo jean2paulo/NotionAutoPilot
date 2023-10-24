@@ -70,7 +70,7 @@ for row in data:
 
         # VP Cota
         stringVPCota = row['VP_COTA']
-        if stringPrice != "#N/A":
+        if stringVPCota != "#N/A":
             vpCota = float(stringVPCota.replace(",", "."))
             notion_utils.notion_update(
                 notion,

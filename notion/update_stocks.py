@@ -32,8 +32,8 @@ googleClient = gspread.authorize(credentials)
 notion = Client(auth=notion_token)
 
 # ID da planilha do Google Sheets
-spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
-worksheet_name = 'FUNDAMENTUS_FIIS'  # Nome da planilha
+spreadsheet_id = '83403ccb183741aea302a535e20c4e1f'
+worksheet_name = 'FUNDAMENTUS_STOCKS'  # Nome da planilha
 sh = googleClient.open_by_key(spreadsheet_id)
 worksheet = sh.worksheet(worksheet_name)
 
@@ -49,13 +49,13 @@ for row in data:
         # name
         name = row['NAME']
 
-        # segmento
-        stringSegment = row['SEGMENTO']
-        if stringSegment != "#N/A":
+        # setor
+        stringSetor = row['SETOR']
+        if stringSetor != "#N/A":
             notion_utils.notion_update(
                 notion,
                 notion_page_id,
-                notion_utils.notion_update_string('Segmento', stringSegment)
+                notion_utils.notion_update_string('Setor', stringSetor)
             )
 
         # price
@@ -68,14 +68,14 @@ for row in data:
                 notion_utils.notion_update_number('Price', price)
             )
 
-        # VP Cota
-        stringVPCota = row['VP_COTA']
-        if stringPrice != "#N/A":
-            vpCota = float(stringVPCota.replace(",", "."))
+        # PL
+        stringPL = row['PL']
+        if stringPL != "#N/A":
+            pl = float(stringPL.replace(",", "."))
             notion_utils.notion_update(
                 notion,
                 notion_page_id,
-                notion_utils.notion_update_number('VP_COTA', vpCota)
+                notion_utils.notion_update_number('PL', pl)
             )
         
         # PVP
