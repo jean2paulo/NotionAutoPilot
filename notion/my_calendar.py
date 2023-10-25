@@ -1,4 +1,4 @@
-import utils as notion_utils
+from notion import utils as notion_utils
 
 # Projects Notion Page
 CALENDAR_PAGE_ID = "2f507df1949845c0ae7628401b9f273b"
