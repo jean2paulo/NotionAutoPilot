@@ -7,7 +7,6 @@ from notion.my_calendar import today_calendar
 from notion.birthday import today_birthday
 from notion.commitment import today_commitment
 from notion.financial import month
-from notion.financial import total_image
 from notion.tasks import all_tasks
 from third_party import advice_slip
 
