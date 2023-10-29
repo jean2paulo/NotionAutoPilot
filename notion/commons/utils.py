@@ -85,6 +85,14 @@ def extract_formula_number(result, property_name):
     else:
         return 0
     
+def extract_rollup_number(result, property_name):
+    title = result["properties"][property_name]["rollup"]
+    
+    if title:
+        return title.get('number', {})
+    else:
+        return 0
+    
 # ---- FORMAT ---- #
 
 def format_page_id(page_id): 

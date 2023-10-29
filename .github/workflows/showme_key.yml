@@ -1,4 +1,4 @@
-name: Atualização de Cotaçao
+name: Show me key
 
 on:
   workflow_dispatch:

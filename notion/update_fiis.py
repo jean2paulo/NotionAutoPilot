@@ -1,7 +1,7 @@
 import os
 import gspread
 import logging
-import utils as notion_utils
+import notion.commons.utils as notion_utils
 
 from notion_client import Client
 from oauth2client.service_account import ServiceAccountCredentials

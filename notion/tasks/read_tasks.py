@@ -1,5 +1,5 @@
 from notion.tasks import utils as task_utils
-from notion import utils as notion_utils
+from notion.commons import utils as notion_utils
 
 NOTION_CHECK_TASKS_BOT_TERM = "notion_check_tasks"
 

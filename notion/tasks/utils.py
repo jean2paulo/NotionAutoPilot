@@ -1,8 +1,7 @@
 import uuid
-from notion import utils as notion_utils
 
 # Projects Notion Page
-NOTION_PROJECT_PAGE_ID = "24869af463b34b879fd9572e7029641f"
+
 
 # Projects
 SPRINTER_PAGE_ID = "144133c3-3a5a-4938-b876-d1cda4d047de"
@@ -18,14 +17,7 @@ DIA_DIA_PAGE_ID = "c73241a9-ac26-4748-b6c2-b11030ea67ea"
 NOTION_PAGE_ID = "fe1636b4-3233-4202-b8ef-60219e00752b"
 VIAJA_JEAN_PAGE_ID = "958c9312-893c-4514-9731-34880728dd70"
 
-# Status
-DONE_STATUS = "Done"
-PLANNING_STATUS = "Planning"
-ARCHIVED_STATUS = "Arquivado"
-IN_PROGRESS_STATUS = "In Progress"
-BLOCKED_STATUS = "Blocked"
-THIS_WEEK_STATUS = "This week"
-SPRINT_STATUS = "Sprint"
+
 
 # Request
 PROJECT_REQUEST_MESSAGE = "Qual Projeto?\n1- Finanças\n2- Sprinter\n3- Dev\n4- XP\n5- Self-Improve\n6- Chile\n7- Saude"
@@ -81,8 +73,11 @@ def searchQuery(pageId, status):
                  ]
             } 
         }
-
     
+def format_message_title(title):
+    return f"***️⃣ {title}**\n---------\n"
+
+
 def extract_project_name(page_id):
     if(page_id == SPRINTER_PAGE_ID):
         return '🚐 Sprinter'

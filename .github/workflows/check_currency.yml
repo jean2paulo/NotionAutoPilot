@@ -1,15 +1,8 @@
-name: Check Currency
+name: Update Currency
 
 on:
   workflow_dispatch:
 
-  #push:
-    #branches:
-    #  - master
-    #  - 'feature/*'
-    #  - '!dev'
-    #branches-ignore:
-    #  - dev
   schedule:
     - cron: "0 12,15,21 * * 1-5" # www.crontab.guru
 

@@ -3,10 +3,10 @@ import telebot
 from notion.tasks import utils
 from notion.tasks import create_tasks
 from notion.tasks import read_tasks
-from notion import birthday
+from notion.birthday import today_birthday
 from notion import my_calendar
-from notion import commitment
-from notion import financial_month
+from notion.commitment import today_commitment
+from notion.financial import month as financial_month
 
 from notion_client import Client
 
@@ -17,6 +17,10 @@ from telegram import horoscope
 
 telegram_bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
 bot = telebot.TeleBot(telegram_bot_token)
+
+@bot.message_handler(commands=['id'])
+def send_welcome(message):
+    bot.reply_to(message, message.chat.id)
 
 @bot.message_handler(commands=['start', 'hello'])
 def send_welcome(message):
@@ -61,7 +65,7 @@ def check_tasks(message):
 
 @bot.message_handler(commands=["notion_check_today_birthday"])
 def check_today_birthday(message):
-    full_message = birthday.check_today_birthday(notion)
+    full_message = today_birthday.check_today_birthday(notion)
     bot.send_message(
         message.chat.id, 
         full_message,
@@ -95,7 +99,7 @@ def check_financial_month_totals(message):
 
 @bot.message_handler(commands=["notion_check_today_commitment"])
 def check_today_commitment(message):
-    full_message = commitment.check_today_commitment(notion)
+    full_message = today_commitment.check_today_commitment(notion)
     bot.send_message(
         message.chat.id, 
         full_message,
@@ -105,9 +109,9 @@ def check_today_commitment(message):
 # morning report
 @bot.message_handler(commands=["morning_report"])
 def morning_report(message):
-    birthday_message = birthday.check_today_birthday(notion)
+    birthday_message = today_birthday.check_today_birthday(notion)
     calendar_message = my_calendar.check_today_calendar(notion)
-    commitment_message = commitment.check_today_commitment(notion)
+    commitment_message = today_commitment.check_today_commitment(notion)
     tasks_message = read_tasks.check_all_tasks(notion)
     financial_message = financial_month.check_financial_month_totals(notion)
 

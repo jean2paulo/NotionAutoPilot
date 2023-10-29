@@ -1,15 +1,7 @@
-name: Atualização de Cotaçao
+name: Update de Cotaçao
 
 on:
   workflow_dispatch:
-
-  #push:
-    #branches:
-    #  - master
-    #  - 'feature/*'
-    #  - '!dev'
-    #branches-ignore:
-    #  - dev
   schedule:
     - cron: "15 21 * * 1-5" # www.crontab.guru
 
