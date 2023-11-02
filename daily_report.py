@@ -29,44 +29,62 @@ bot = telebot.TeleBot(telegram_bot_token)
 advice = f"\n_💭 {advice_slip.get_random_quote()}_\n"
 welcome_message = f"Bom dia *Jean!* ☀️\n{advice}\nEsse é o seu reporte para o dia de hoje:"
 
-# Morning Routine
-bot.send_message(
-    telegram_bot_id, 
-    welcome_message,
-    parse_mode="Markdown"
-)
+try:
+    # Morning Routine
+    bot.send_message(
+        telegram_bot_id, 
+        welcome_message,
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
 
-# Birthday
-bot.send_message(
-    telegram_bot_id, 
-    today_birthday.get_today_birthday_message(notion),
-    parse_mode="Markdown"
-)
+try:
+    # Birthday
+    bot.send_message(
+        telegram_bot_id, 
+        today_birthday.get_today_birthday_message(notion),
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
 
-# Calendar
-bot.send_message(
-    telegram_bot_id, 
-    today_calendar.get_today_calendar_message(notion),
-    parse_mode="Markdown"
-)
+try: 
+    # Calendar
+    bot.send_message(
+        telegram_bot_id, 
+        today_calendar.get_today_calendar_message(notion),
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
 
-# Commitment
-bot.send_message(
-    telegram_bot_id, 
-    today_commitment.get_today_commitment_message(notion),
-    parse_mode="Markdown"
-)
+try:
+    # Commitment
+    bot.send_message(
+        telegram_bot_id, 
+        today_commitment.get_today_commitment_message(notion),
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
 
-# Financial
-bot.send_message(
-    telegram_bot_id, 
-    month.get_totals_message(notion),
-    parse_mode="Markdown"
-)
+try:
+    # Financial
+    bot.send_message(
+        telegram_bot_id, 
+        month.get_totals_message(notion),
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
 
-# Tasks
-bot.send_message(
-    telegram_bot_id, 
-    all_tasks.get_all_tasks_message(notion),
-    parse_mode="Markdown"
-)
+try:
+    # Tasks
+    bot.send_message(
+        telegram_bot_id, 
+        all_tasks.get_all_tasks_message(notion),
+        parse_mode="Markdown"
+    )
+except Exception as e:
+    print(f"[daily_report] ERROR: {e}")
