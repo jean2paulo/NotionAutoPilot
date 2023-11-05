@@ -37,13 +37,13 @@ jobs:
         run: python3 third_party/fundamentus/update_stocks.py
 
       - name: Stocks - Atualizando Notion Fundamentus
-        run: python3 notion/update_stocks.py
+        run: python3 update_stocks.py
 
       - name: Fiis - Atualizando a planilha 
         run: python3 third_party/fundamentus/update_fiis.py
 
       - name: Fiis - Atualizando Notion Fundamentus
-        run: python3 notion/update_fiis.py
+        run: python3 update_fiis.py
 
       - name: Enviando notificaçao por Telegram 
         uses: appleboy/telegram-action@master
