@@ -17,30 +17,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y python3-pip
-          pip3 install gspread oauth2client
           pip3 install notion-client
           pip3 install pandas
           pip3 install lxml
-          
-      - id: 'auth'
-        name: Autenticando no Google Cloud..
-        uses: 'google-github-actions/auth@v1'
-        with:
-          credentials_json: ${{ secrets.GOOGLE_SERVICE_KEY }}
 
       - name: Configurando variaveis de ambiente..
         run: |
           echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
-          echo "GOOGLE_CLOUD_CREDENTIALS_FILE=${{ steps.auth.outputs.credentials_file_path }}" >> $GITHUB_ENV
-
-      - name: Stocks - Atualizando a planilha
-        run: python3 third_party/fundamentus/update_stocks.py
 
       - name: Stocks - Atualizando Notion Fundamentus
         run: python3 update_stocks.py
-
-      - name: Fiis - Atualizando a planilha 
-        run: python3 third_party/fundamentus/update_fiis.py
 
       - name: Fiis - Atualizando Notion Fundamentus
         run: python3 update_fiis.py
