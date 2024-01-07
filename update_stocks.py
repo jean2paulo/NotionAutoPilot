@@ -4,7 +4,6 @@ import notion.financial.stocks as notion_stocks
 import third_party.fundamentus.details as fundamentus
 
 from notion_client import Client
-from oauth2client.service_account import ServiceAccountCredentials
 
 # Configurando o nível de log
 logging.basicConfig(filename='log_error.txt', level=logging.INFO)
