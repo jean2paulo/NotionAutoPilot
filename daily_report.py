@@ -8,7 +8,7 @@ from notion.birthday import today_birthday
 from notion.commitment import today_commitment
 from notion.financial import month
 from notion.tasks import all_tasks
-from third_party import advice_slip
+from third_party.advice import advice_slip
 
 # Configurando o nível de log
 logging.basicConfig(filename='log_error.txt', level=logging.INFO)
@@ -79,12 +79,12 @@ try:
 except Exception as e:
     print(f"[daily_report] ERROR: {e}")
 
-try:
-    # Tasks
-    bot.send_message(
-        telegram_bot_id, 
-        all_tasks.get_all_tasks_message(notion),
-        parse_mode="Markdown"
-    )
-except Exception as e:
-    print(f"[daily_report] ERROR: {e}")
+# try:
+#     # Tasks
+#     bot.send_message(
+#         telegram_bot_id, 
+#         all_tasks.get_all_tasks_message(notion),
+#         parse_mode="Markdown"
+#     )
+# except Exception as e:
+#     print(f"[daily_report] ERROR: {e}")

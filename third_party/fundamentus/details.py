@@ -10,7 +10,7 @@ detalhes:
 # from fundamentus.utils import from_pt_br
 # from fundamentus.utils import fmt_dec
 
-import utils
+import third_party.fundamentus.utils as utils
 import requests
 import pandas as pd
 import logging, sys

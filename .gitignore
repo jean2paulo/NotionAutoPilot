@@ -5369,3 +5369,4 @@ log_error.txt
 .venv/lib/python3.9/site-packages/pip-23.3.1.dist-info/REQUESTED
 .venv/lib/python3.9/site-packages/pip-23.3.1.dist-info/top_level.txt
 .venv/lib/python3.9/site-packages/pip-23.3.1.dist-info/WHEEL
+log_error.txt

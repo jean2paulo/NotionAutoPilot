@@ -13,11 +13,12 @@ def notion_update_string(property_name, value):
 
 # ---- QUERY ---- #
 
-def notion_query(notion, databaseId, filter, sort=None):
-    if(sort==None):
-        query = {"database_id": databaseId,"filter": filter}
-    else:
-        query = {"database_id": databaseId,"filter": filter, "sorts": sort}
+def notion_query(notion, databaseId, filter=None, sort=None):
+    query = { 'database_id': databaseId }
+    if (filter != None):
+        query['filter'] = filter
+    if (sort != None):
+        query['sort'] = sort
     return notion.databases.query(**query)
 
 # Filter
@@ -42,6 +43,12 @@ def notion_filter_status(property_name, status_id):
 def notion_filter_checkbox(property_name, checked):
     return { "property": property_name, "checkbox": { "equals": checked }}
 
+def notion_filter_number(property_name, number, condition='equals'):
+    return {"property": property_name, "number": {condition: number}}
+
+def notion_filter_number_greater_than_or_equal_to(property_name, number):
+    return {"property": property_name, "number": {"greater_than_or_equal_to": number}}
+
 # Sort
 
 def notion_sort_asc(property_name):
@@ -53,6 +60,9 @@ def notion_sort_desc(property_name):
 # ---- RESPONSE ---- #
 
 # extract title
+
+def extract_id(result):
+    return result["id"]
 
 def extract_title(result, property_name):
     title = result["properties"][property_name]["title"]
@@ -76,7 +86,10 @@ def extract_relation_id(result, property_name):
         return relation[0]['id']
     except:
         return -1
-    
+def extract_number(result, property_name):
+    number = result["properties"][property_name]["number"]
+    return number
+
 def extract_formula_number(result, property_name):
     title = result["properties"][property_name]["formula"]
 
@@ -87,12 +100,11 @@ def extract_formula_number(result, property_name):
     
 def extract_rollup_number(result, property_name):
     title = result["properties"][property_name]["rollup"]
-    
+
     if title:
         return title.get('number', {})
     else:
         return 0
-    
 # ---- FORMAT ---- #
 
 def format_page_id(page_id): 
@@ -107,3 +119,6 @@ def format_real(number):
 
 def formatar_percentage(number):
     return "%.2f%%" % (number * 100)
+
+def format_float(number):
+    return "{number:,.2f}".format(number=number)

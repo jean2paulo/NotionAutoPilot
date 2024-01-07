@@ -1,7 +1,8 @@
 import os
 import gspread
 import logging
-import notion.commons.utils as notion_utils
+import notion.financial.stocks as notion_stocks
+import third_party.fundamentus.details as fundamentus
 
 from notion_client import Client
 from oauth2client.service_account import ServiceAccountCredentials
@@ -13,92 +14,67 @@ logging.basicConfig(filename='log_error.txt', level=logging.INFO)
 logger = logging.getLogger()
 
 # Ler as variáveis de ambiente
-credentials_file = os.getenv('GOOGLE_CLOUD_CREDENTIALS_FILE')
 notion_token = os.getenv('NOTION_TOKEN')
-
-# Defina o escopo e carregue as credenciais do arquivo JSON
-scope = [
-    "https://www.googleapis.com/auth/drive", 
-    "https://www.googleapis.com/auth/spreadsheets"
-]
-
-# credentials = service_account.Credentials.from_service_account_file(credentials_file) # Using oauth2client
-credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file, scope)
-
-# Configurar cliente do Google Sheets
-googleClient = gspread.authorize(credentials)
 
 # Configurar cliente de Notion
 notion = Client(auth=notion_token)
 
-# ID da planilha do Google Sheets
-spreadsheet_id = '1rKgwERiE6CQhK69sBun9N2dsGegAHTWctPS_KiHVM_8'
-worksheet_name = 'FUNDAMENTUS_STOCKS'  # Nome da planilha
-sh = googleClient.open_by_key(spreadsheet_id)
-worksheet = sh.worksheet(worksheet_name)
+# Percorrer todas as linhas da tabela no notion
+data = notion_stocks.get_fundamentus_stocks_id(notion)
 
-# Percorrer todas as linhas da planilha
-data = worksheet.get_all_records(numericise_ignore=['all'])
 count_success = 0
-for row in data:
+for stock in data:
     try:
+        # init local properties
+        name = stock['name']
+        id = stock['id']
+        properties = {}
 
-        # page id
-        notion_page_id = notion_utils.format_page_id(row['ID'])
-    
-        # name
-        name = row['NAME']
+        # get details from fundamentus
+        df = fundamentus.get_detalhes_papel(name)
 
-        # setor
-        stringSetor = row['SETOR']
-        if stringSetor != "#N/A":
-            notion_utils.notion_update(
-                notion,
-                notion_page_id,
-                notion_utils.notion_update_string('Setor', stringSetor)
-            )
+         # Sector
+        try:
+            sector = df.Setor.values[0]
+            properties['setor'] = sector
+        except Exception as e:
+            logger.error(f'[update_stocks_v2][setor][{name}]: {e}')
 
-        # price
-        stringPrice = row['PRICE']
-        if stringPrice != "#N/A":
-            price = float(stringPrice.replace(",", "."))
-            notion_utils.notion_update(
-                notion,
-                notion_page_id,
-                notion_utils.notion_update_number('Price', price)
-            )
+
+        # Cotacao
+        try:
+            cotacao = int(df.Cotacao.values[0])/100
+            properties['cotacao'] = cotacao
+        except Exception as e:
+            logger.error(f'[update_stocks_v2][update_cotacao][{name}] : {e}')
+
+        # PVP
+        try:
+            pvp = int(df.PVP.values[0]) / 100
+            properties['pvp'] = pvp
+        except Exception as e:
+            logger.error(f'[update_fiis_v2][update_pvp][{name}] : {e}')
 
         # PL
-        stringPL = row['PL']
-        if stringPL != "#N/A":
-            pl = float(stringPL.replace(",", "."))
-            notion_utils.notion_update(
-                notion,
-                notion_page_id,
-                notion_utils.notion_update_number('PL', pl)
-            )
-        
-        # PVP
-        stringPVP = row['PVP']
-        if stringPVP != "#N/A":
-            pvp = float(stringPVP.replace(",", "."))
-            notion_utils.notion_update(
-                notion,
-                notion_page_id,
-                notion_utils.notion_update_number('PVP', pvp)
-            )
+        try:
+            pl = int(df.PL.values[0]) / 100
+            properties['pl'] = pl
+        except Exception as e:
+            logger.error(f'[update_stocks_v2][update_pl][{name}] : {e}')
 
         # DY
-        stringDy = row['DY']
-        if stringDy != "#N/A":
-            dy = float(stringDy.replace(",", ".").replace('%', ''))/100
-            notion_utils.notion_update(
-                notion,
-                notion_page_id,
-                notion_utils.notion_update_number('DY', dy)
-            )
+        try:
+            dy = float(df.Div_Yield.values[0].replace(",", ".").replace('%', '')) / 100
+            properties['dy'] = dy
+        except Exception as e:
+            logger.error(f'[update_stocks_v2][update_dy][{name}] : {e}')
 
-        print(f'Updating {name}.. ')
+      
+        # Update properties in notion
+        notion_stocks.update_fundamentus_stocks(notion, id, properties)
+        
+        count_success += 1
     except Exception as e:
-        print(f"[update_fundamentus_fiis] ERROR: {e}")
-        #logger.error(f"[update_fundamentus_fiis] ERROR: {e.with_traceback}")
+        logger.error(f'[update_stocks_v2][get_fundamentus][{name}] : {e}')
+
+print(str(count_success) + '/' + str(len(data)))
