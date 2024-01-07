@@ -1,5 +1,4 @@
 import os
-import gspread
 import logging
 import notion.financial.stocks as notion_stocks
 import third_party.fundamentus.details as fundamentus
