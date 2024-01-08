@@ -3,7 +3,7 @@ name: Get Top RV
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 9 * * *" # www.crontab.guru
+    - cron: "0 10 * * 1" # www.crontab.guru
 
 jobs:
   update_data:
