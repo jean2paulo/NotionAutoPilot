@@ -75,4 +75,4 @@ for stock in data:
     except Exception as e:
         logger.error(f'[update_stocks_v2][get_fundamentus][{name}] : {e}')
 
-print(str(count_success) + '/' + str(len(data)))
+print(f"{count_success}/{len(data)}")

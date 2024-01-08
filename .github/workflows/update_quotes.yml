@@ -42,5 +42,5 @@ jobs:
         with:
           to: ${{ secrets.TELEGRAM_BOT_ID }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
-          message: Cotaçoes atualizadas (${{ env.RESULT }})!
+          message: '👍🏼 Cotaçoes atualizadas!'
           disable_notification: true

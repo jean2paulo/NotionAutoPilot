@@ -75,4 +75,4 @@ for fii in data:
         logger.error(f'[update_fiis_v2][get_fundamentus][{name}] : {e}')
 
 
-print(str(count_success) + '/' + str(len(data)))
+print(f"{count_success}/{len(data)}")

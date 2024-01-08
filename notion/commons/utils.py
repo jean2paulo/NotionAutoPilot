@@ -13,15 +13,27 @@ def notion_update_string(property_name, value):
 
 # ---- QUERY ---- #
 
-def notion_query(notion, databaseId, filter=None, sort=None):
+def notion_query(notion, databaseId, filter=None, sort=None, page_size=None):
     query = { 'database_id': databaseId }
     if (filter != None):
         query['filter'] = filter
     if (sort != None):
-        query['sort'] = sort
+        query['sorts'] = sort
+    if (page_size != None):
+        query['page_size'] = page_size
     return notion.databases.query(**query)
 
 # Filter
+FILTER_IS_EMPTY = 'is_empty'
+FILTER_IS_NOT_EMPTY = 'is_not_empty'
+
+FILTER_GREATER_THAN = 'greater_than'
+FILTER_GREATER_THAN_OR_EQUAL_TO = 'greater_than_or_equal_to'
+FILTER_EQUALS = 'equals'
+
+FILTER_DOES_NOT_EQUAL = 'does_not_equal'
+FILTER_LESS_THAN_OR_EQUAL_TO = 'less_than_or_equal_to'
+FILTER_LESS_THAN = 'less_than'
 
 def notion_filter_and(condition_1, condition_2):
     return {"and": [condition_1, condition_2]}
@@ -52,10 +64,10 @@ def notion_filter_number_greater_than_or_equal_to(property_name, number):
 # Sort
 
 def notion_sort_asc(property_name):
-    return{ "property": property_name, "direction": "ascending"}
+    return { "property": property_name, "direction": "ascending"}
 
 def notion_sort_desc(property_name):
-    return{ "property": property_name, "direction": "descending"}
+    return { "property": property_name, "direction": "descending"}
 
 # ---- RESPONSE ---- #
 

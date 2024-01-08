@@ -1,0 +1,33 @@
+name: Get Top RV
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 * * *" # www.crontab.guru
+
+jobs:
+  update_data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repositório..
+        uses: actions/checkout@v3
+
+      - name: Instalando dependências..
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+          pip3 install notion-client
+          pip3 install pyTelegramBotAPI
+          
+      - name: Configurando variaveis de ambiente..
+        run: |
+          echo "NOTION_TOKEN=${{ secrets.NOTION_TOKEN }}" >> $GITHUB_ENV
+          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_TOKEN }}" >> $GITHUB_ENV
+          echo "TELEGRAM_BOT_ID=${{ secrets.TELEGRAM_BOT_ID }}" >> $GITHUB_ENV
+
+      - name: Consultando Top 15 fiis em Notion
+        run: python3 get_top_15_fiis.py 
+
+      - name: Consultando Top 15 açoes em Notion
+        run: python3 get_top_15_acoes.py 

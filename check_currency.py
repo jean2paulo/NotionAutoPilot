@@ -27,7 +27,7 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(credentials_file,
 googleClient = gspread.authorize(credentials)
 
 # ID da planilha do Google Sheets
-spreadsheet_id = '1QljCc1VfhLL2yTvskJh3dErChu_37rBXNPz2VqzppAw'
+spreadsheet_id = '1OS_ILhXH1ewMZ93yOtsQkt4uvp-hIsT5zjfIiVaiMpk'
 worksheet_name = 'MAX_MIN'  # Nome da planilha
 sh = googleClient.open_by_key(spreadsheet_id)
 worksheet = sh.worksheet(worksheet_name)
