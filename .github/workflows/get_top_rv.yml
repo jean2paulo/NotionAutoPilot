@@ -30,4 +30,4 @@ jobs:
         run: python3 get_top_15_fiis.py 
 
       - name: Consultando Top 15 açoes em Notion
-        run: python3 get_top_15_acoes.py 
+        run: python3 get_top_15_stocks.py 
